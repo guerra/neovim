@@ -67,6 +67,7 @@ wk.register({
   p = { '"_dP', 'Pastes preserving register' },
   y = { '"+y', 'Yank to + register' },
   Y = { '"+Y', 'Yank # lines to + register' },
+  P = { '"+p', 'Pastes + register' },
   ['<S-d>'] = { '"_d', 'Deletes preserving register' },
 
   s = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'Replace current word' },
@@ -177,9 +178,9 @@ wk.register({
 }, { prefix = '' })
 
 wk.register({
-  p = { '"_dP', 'Pastes preserving register' },
-  y = { '"+y', 'Yank to + register' },
-  Y = { '"+Y', 'Yank # lines to + register' },
+  -- p = { '"_dP', 'Pastes preserving register' },
+  -- y = { '"+y', 'Yank to + register' },
+  -- Y = { '"+Y', 'Yank # lines to + register' },
   d = { '"_d', 'Deletes preserving register' },
   ['<A-k>'] = { '<cmd>m\'<-2<cr>`>my`<mzgv`yo`z', 'Move selected lines up' },
   ['<A-j>'] = { '<cmd>m\'>+<cr>`<my`>mzgv`yo`z', 'Move selected lines down' },
