@@ -7,6 +7,8 @@ return packer.startup({
     -- Packer can manage itself
     use('wbthomason/packer.nvim')
 
+    use('famiu/bufdelete.nvim')
+
     use({
       'nvim-telescope/telescope.nvim',
       requires = { { 'nvim-lua/plenary.nvim' } },
