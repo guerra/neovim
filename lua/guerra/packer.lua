@@ -14,6 +14,8 @@ return packer.startup({
       requires = { { 'nvim-lua/plenary.nvim' } },
     })
 
+    use({ 'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim' })
+
     -- all keybindings here
     use({
       'folke/which-key.nvim',
