@@ -1,5 +1,3 @@
-vim.g.mapleader = ' '
-
 local wk = require('which-key')
 local tc = require('telescope')
 local tc_builtin = require('telescope.builtin')
