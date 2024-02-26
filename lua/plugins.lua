@@ -99,6 +99,7 @@ return {
         },
         sections = {
           lualine_a = {
+            { 'filename' },
             {
               'buffers',
             },
@@ -150,4 +151,6 @@ return {
     -- If you have a recent version of lazy.nvim, you don't need to add this!
     build = "nvim -l build/init.lua",
   },
+  'ThePrimeagen/git-worktree.nvim',
+  'tpope/vim-fugitive',
 }

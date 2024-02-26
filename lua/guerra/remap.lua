@@ -20,6 +20,8 @@ wk.register({
     b = { tc_builtin.buffers, 'Buffers' },
     q = { tc.extensions.aerial.aerial, 'Tags' },
     r = { tc_builtin.lsp_references, 'References' },
+    o = { tc.extensions.git_worktree.git_worktrees, 'Git worktrees' },
+    c = { tc.extensions.git_worktree.create_git_worktree, 'Create git worktree' },
   },
   ['<space>'] = { tc_builtin.resume, 'Resume' },
 
