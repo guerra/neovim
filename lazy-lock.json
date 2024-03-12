@@ -1,4 +1,5 @@
 {
+  "ChatGPT.nvim": { "branch": "main", "commit": "ff458cbbd4333560eb9c5093c03f38de19470bc5" },
   "LuaSnip": { "branch": "master", "commit": "f3b3d3446bcbfa62d638b1903ff00a78b2b730a1" },
   "aerial.nvim": { "branch": "master", "commit": "3748e87a316a68754341cdffcef44fee61dee51c" },
   "bufdelete.nvim": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },
@@ -19,7 +20,7 @@
   "nvim-cmp": { "branch": "main", "commit": "04e0ca376d6abdbfc8b52180f8ea236cbfddf782" },
   "nvim-lint": { "branch": "master", "commit": "85fe14d080d902dcc566461f0205495d0c153372" },
   "nvim-lspconfig": { "branch": "master", "commit": "ec7d51a619049c7c597f469f81ea199db6794651" },
-  "nvim-treesitter": { "branch": "master", "commit": "fad40f2010c6f50aaad285b2752551a37d8772e4" },
+  "nvim-treesitter": { "branch": "master", "commit": "18aa5ae3fd7245137bc41b5348102fe254405509" },
   "nvim-ufo": { "branch": "main", "commit": "553d8a9c611caa9f020556d4a26b760698e5b81b" },
   "nvim-web-devicons": { "branch": "master", "commit": "0bb67ef952ea3eb7b1bac9c011281471d99a27bc" },
   "oil.nvim": { "branch": "master", "commit": "132b4ea0740c417b9d717411cab4cf187e1fd095" },
