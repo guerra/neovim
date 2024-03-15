@@ -48,6 +48,11 @@ require('mason-lspconfig').setup({
     'tsserver',
     'eslint',
     'lua_ls',
+    'gopls',
+    'html',
+    'htmx',
+    'bashls',
+    'templ',
   },
   handlers = {
     lsp_zero.default_setup,

@@ -20,6 +20,7 @@ return {
   -- color schemes
   { 'rose-pine/neovim',                name = 'rose-pine' },
   { 'rebelot/kanagawa.nvim',           name = 'kanagawa' },
+  { 'NLKNguyen/papercolor-theme',      name = 'papercolor' },
 
   -- treesitter
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },

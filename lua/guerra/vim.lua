@@ -1,4 +1,5 @@
-vim.cmd('colorscheme kanagawa')
+vim.opt.background = 'light'
+vim.cmd('colorscheme PaperColor')
 
 vim.opt.guicursor = ''
 
