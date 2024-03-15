@@ -6,7 +6,7 @@ return {
     dependencies = { { 'nvim-lua/plenary.nvim' } },
   },
 
-  { 'axkirillov/easypick.nvim',        dependencies = 'nvim-telescope/telescope.nvim' },
+  { 'axkirillov/easypick.nvim', dependencies = 'nvim-telescope/telescope.nvim' },
 
   -- all keybindings here
   {
@@ -18,9 +18,18 @@ return {
   },
 
   -- color schemes
-  { 'rose-pine/neovim',                name = 'rose-pine' },
-  { 'rebelot/kanagawa.nvim',           name = 'kanagawa' },
-  { 'NLKNguyen/papercolor-theme',      name = 'papercolor' },
+  { 'rose-pine/neovim',         name = 'rose-pine' },
+  { 'rebelot/kanagawa.nvim',    name = 'kanagawa' },
+  {
+    'NLKNguyen/papercolor-theme',
+    -- lazy = false,
+    -- priority = 1000,
+    -- config = function()
+    --   vim.opt.background = 'dark'
+    --   vim.cmd([[colorscheme PaperColor]])
+    -- end,
+    name = 'papercolor'
+  },
 
   -- treesitter
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },

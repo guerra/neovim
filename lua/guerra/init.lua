@@ -1,6 +1,6 @@
+require('guerra.vim')
 require('guerra.formatting')
 require('guerra.linting')
-require('guerra.vim')
 require('guerra.lsp')
 require('guerra.treesitter')
 require('guerra.chatGPT')
