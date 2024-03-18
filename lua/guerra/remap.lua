@@ -9,7 +9,7 @@ local lint = require('lint')
 local rest = require('rest-nvim')
 local ufo = require('ufo')
 local trouble = require('trouble')
-local tree = require('nvim-tree.api')
+local oil = require('oil')
 
 wk.register({
   g = {
@@ -97,6 +97,7 @@ wk.register({
   },
 
   t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" }, -- create a binding with label
+  o = { function() oil.toggle_float('.') end, 'Open oil' },
 
   q = {
     name = 'Aerial tags',
