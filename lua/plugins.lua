@@ -160,6 +160,17 @@ return {
     -- If you have a recent version of lazy.nvim, you don't need to add this!
     build = "nvim -l build/init.lua",
   },
+
   'ThePrimeagen/git-worktree.nvim',
   'tpope/vim-fugitive',
+
+  {
+    'iamcco/markdown-preview.nvim',
+    build = 'cd app & yarn install'
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    dependencies = "nvim-tree/nvim-web-devicons",
+  }
 }

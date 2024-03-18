@@ -9,6 +9,7 @@ local lint = require('lint')
 local rest = require('rest-nvim')
 local ufo = require('ufo')
 local trouble = require('trouble')
+local tree = require('nvim-tree.api')
 
 wk.register({
   g = {
@@ -94,6 +95,8 @@ wk.register({
     r = { '<cmd>ChatGPTRun roxygen_edit<CR>', 'Roxygen Edit', mode = { 'n', 'v' } },
     l = { '<cmd>ChatGPTRun code_readability_analysis<CR>', 'Code Readability Analysis', mode = { 'n', 'v' } },
   },
+
+  t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" }, -- create a binding with label
 
   q = {
     name = 'Aerial tags',
