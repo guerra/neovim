@@ -101,7 +101,7 @@ wk.register({
 
   q = {
     name = 'Aerial tags',
-    ['<space>'] = { vim.cmd.AerialToggle, 'Toggle tags' },
+    ['<space>'] = { '<cmd>AerialToggle!<CR>', 'Toggle tags' },
     j = { vim.cmd.AerialNext, 'Next tag' },
     k = { vim.cmd.AerialPrev, 'Prev tag' },
   },
