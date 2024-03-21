@@ -20,7 +20,7 @@ vim.filetype.add({
   },
 })
 
-vim.cmd('colorscheme kanagawa-lotus')
+vim.cmd('colorscheme kanagawa-wave')
 
 vim.opt.guicursor = ''
 

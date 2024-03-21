@@ -53,6 +53,7 @@ require('mason-lspconfig').setup({
     'htmx',
     'bashls',
     'templ',
+    'elixirls',
   },
   handlers = {
     lsp_zero.default_setup,
