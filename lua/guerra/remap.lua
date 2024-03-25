@@ -77,7 +77,7 @@ wk.register({
   j = { '<cmd>bprevious<cr>', 'previous buffer file' },
   k = { '<cmd>bnext<cr>', 'next buffer file' },
   d = { '<cmd>Bdelete<cr>', 'Belete buffer' },
-  D = { '<cmd>Bwipeout<cr>', 'delete buffer' },
+  D = { '<cmd>%Bdelete<cr>', 'delete all buffer' },
 
   c = {
     name = 'ChatGPT',
