@@ -18,13 +18,13 @@ wk.register({
     h = { tc_builtin.git_files, 'Git file search' },
     H = { tc_builtin.help_tags, 'Vim help' },
     g = { tc_builtin.live_grep, 'Live grep' },
-    b = { tc_builtin.buffers, 'Buffers' },
     q = { tc.extensions.aerial.aerial, 'Tags' },
     r = { tc_builtin.lsp_references, 'References' },
     o = { tc.extensions.git_worktree.git_worktrees, 'Git worktrees' },
     c = { tc.extensions.git_worktree.create_git_worktree, 'Create git worktree' },
   },
   ['<space>'] = { tc_builtin.resume, 'Resume' },
+  b = { tc_builtin.buffers, 'Buffers' },
 
   -- Harpoon
   h = { ui.nav_next, 'Next Harpoon Mark' },
