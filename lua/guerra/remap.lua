@@ -152,20 +152,22 @@ wk.register({
       'Localtion List',
     },
 
-    -- ['{'] = { function()
-    --   vim.cmd.normal('}ztj')
-    --   local current_line = vim.api.nvim_get_current_line()
-    --   if current_line:match('^%s*$') ~= nil then
-    --     vim.cmd.normal('"_dd')
-    --   end
-    -- end, 'Jump to next block of code'
-    -- },
-
-    -- ['}'] = { function()
-    --   vim.cmd.normal('{{jzt')
-    -- end, 'Jump to previous block of code'
-    -- },
   },
+
+  ['}'] = { function()
+    vim.cmd.normal('}ztj')
+    local current_line = vim.api.nvim_get_current_line()
+    if current_line:match('^%s*$') ~= nil then
+      vim.cmd.normal('"_dd')
+    end
+  end, 'Jump to next block of code'
+  },
+
+  ['{'] = { function()
+    vim.cmd.normal('{{jzt')
+  end, 'Jump to previous block of code'
+  },
+
 }, { prefix = '<leader>' })
 
 wk.register({
@@ -194,6 +196,7 @@ wk.register({
       'Peek fold',
     },
   },
+
 }, { prefix = '' })
 
 wk.register({
