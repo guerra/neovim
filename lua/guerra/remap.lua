@@ -98,6 +98,7 @@ wk.register({
 
   t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" }, -- create a binding with label
   o = { function() oil.toggle_float('.') end, 'Open oil' },
+  O = { oil.toggle_float, 'Open oil' },
 
   q = {
     name = 'Aerial tags',
