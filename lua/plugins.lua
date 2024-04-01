@@ -83,10 +83,10 @@ return {
     },
   },
 
-  {
-    'rest-nvim/rest.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-  },
+  -- {
+  --   'rest-nvim/rest.nvim',
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  -- },
 
   {
     'stevearc/aerial.nvim',

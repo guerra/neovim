@@ -6,7 +6,7 @@ local ui = require('harpoon.ui')
 local term = require('harpoon.term')
 local conform = require('conform')
 local lint = require('lint')
-local rest = require('rest-nvim')
+-- local rest = require('rest-nvim')
 local ufo = require('ufo')
 local trouble = require('trouble')
 local oil = require('oil')
@@ -107,10 +107,10 @@ wk.register({
     k = { vim.cmd.AerialPrev, 'Prev tag' },
   },
 
-  w = {
-    name = 'Rest',
-    r = { rest.run, 'run request' },
-  },
+  -- w = {
+  --   name = 'Rest',
+  --   r = { rest.run, 'run request' },
+  -- },
 
   i = {
     function()
