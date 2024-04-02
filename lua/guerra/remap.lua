@@ -3,7 +3,7 @@ local tc = require('telescope')
 local tc_builtin = require('telescope.builtin')
 local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
-local term = require('harpoon.term')
+local tmux = require('harpoon.tmux')
 local conform = require('conform')
 local lint = require('lint')
 -- local rest = require('rest-nvim')
@@ -11,17 +11,21 @@ local ufo = require('ufo')
 local trouble = require('trouble')
 local oil = require('oil')
 
+tc.load_extension('harpoon')
+
 wk.register({
   g = {
     name = 'Telescope',
     f = { tc_builtin.find_files, 'Find files' },
-    h = { tc_builtin.git_files, 'Git file search' },
+    G = { tc_builtin.git_files, 'Git file search' },
+    h = { '<cmd>Telescope harpoon marks<cr>', 'Harpoon' },
     H = { tc_builtin.help_tags, 'Vim help' },
     g = { tc_builtin.live_grep, 'Live grep' },
     q = { tc.extensions.aerial.aerial, 'Tags' },
     r = { tc_builtin.lsp_references, 'References' },
     o = { tc.extensions.git_worktree.git_worktrees, 'Git worktrees' },
     c = { tc.extensions.git_worktree.create_git_worktree, 'Create git worktree' },
+    n = { tc_builtin.marks, 'Marks' },
   },
   ['<space>'] = { tc_builtin.resume, 'Resume' },
   b = { tc_builtin.buffers, 'Buffers' },
@@ -33,19 +37,19 @@ wk.register({
   a = { ui.toggle_quick_menu, 'Open harpoon' },
   ['1'] = {
     function()
-      term.gotoTerminal(1)
+      tmux.gotoTerminal(1)
     end,
     'Open term 1',
   },
   ['2'] = {
     function()
-      term.gotoTerminal(2)
+      tmux.gotoTerminal(2)
     end,
     'Open term 2',
   },
   ['3'] = {
     function()
-      term.gotoTerminal(3)
+      tmux.gotoTerminal(3)
     end,
     'Open term 3',
   },
@@ -153,21 +157,6 @@ wk.register({
     },
 
   },
-
-  ['}'] = { function()
-    vim.cmd.normal('}ztj')
-    local current_line = vim.api.nvim_get_current_line()
-    if current_line:match('^%s*$') ~= nil then
-      vim.cmd.normal('"_dd')
-    end
-  end, 'Jump to next block of code'
-  },
-
-  ['{'] = { function()
-    vim.cmd.normal('{{jzt')
-  end, 'Jump to previous block of code'
-  },
-
 }, { prefix = '<leader>' })
 
 wk.register({
