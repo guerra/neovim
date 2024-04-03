@@ -32,11 +32,17 @@ return {
   },
 
   -- treesitter
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    lazy = false,
+    priority = 1000,
+  },
+
   { 'nvim-treesitter/playground' },
+
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
     dependencies = { 'nvim-treesitter/nvim-treesitter' }
   },
 

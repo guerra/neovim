@@ -38,22 +38,15 @@ require 'nvim-treesitter.configs'.setup {
   textobjects = {
     select = {
       enable = true,
-
-      -- Automatically jump forward to textobj, similar to targets.vim
       lookahead = true,
-
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["av"] = "@parameter.outer",
-        ["iv"] = "@parameter.inner",
-        -- You can optionally set descriptions to the mappings (used in the desc parameter of
-        -- nvim_buf_set_keymap) which plugins like which-key display
-        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-        -- You can also use captures from other query groups like `locals.scm`
-        ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+        ["af"] = { query = "@function.outer", desc = "@function.outer - select function" },
+        ["if"] = { query = "@function.inner", desc = "@function.inner - select function" },
+        ["av"] = { query = "@parameter.outer", desc = "@parameter.outer - select parameter" },
+        ["iv"] = { query = "@parameter.inner", desc = "@parameter.inner - select parameter" },
+        ["ic"] = { query = "@class.inner", desc = "@class.inner - select class" },
+        ["ac"] = { query = "@class.outer", desc = "@class.outer - select class" },
+        ["as"] = { query = "@scope", query_group = "locals", desc = "@scope.locals - select scope" },
       },
       -- You can choose the select mode (default is charwise 'v')
       --
@@ -76,22 +69,17 @@ require 'nvim-treesitter.configs'.setup {
       -- * query_string: eg '@function.inner'
       -- * selection_mode: eg 'v'
       -- and should return true or false
-      include_surrounding_whitespace = true,
+      include_surrounding_whitespace = false,
     },
 
     move = {
       enable = true,
-      set_jumps = false, -- whether to set jumps in the jumplist
+      set_jumps = false,
       goto_next_start = {
-        ["Jm"] = "@function.outer",
-        -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-        ["Jl"] = "@loop.*",
-        -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-        --
-        -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-        -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-        ["Js"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-        ["Jz"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+        ["Jm"] = { query = "@function.outer", desc = "@function.outer - move to beginning" },
+        ["Jl"] = { query = { "@loop.inner", "@loop.outer" }, desc = "@loop.* - move to loop" },
+        ["Js"] = { query = { "@scope.inner", "@scope.outer" }, query_group = "locals", desc = "Next scope" },
+        ["Jz"] = { query = "@fold", query_group = "folds", desc = "@fold - move to next fold" },
       },
       goto_next_end = {
         ["JM"] = "@function.outer",

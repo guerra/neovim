@@ -116,7 +116,7 @@ wk.register({
   --   r = { rest.run, 'run request' },
   -- },
 
-  i = {
+  I = {
     function()
       lint.try_lint()
     end,
