@@ -176,6 +176,19 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+
+  {
+    'chentoast/marks.nvim',
+    config = function()
+      require('marks').setup()
+    end,
+  }
+
+  -- {
+  --   'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap' }
+  -- },
+
+  -- 'theHamsta/nvim-dap-virtual-text'
 }
