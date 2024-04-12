@@ -2,6 +2,16 @@ return {
   'famiu/bufdelete.nvim',
 
   {
+    'folke/neodev.nvim',
+    config = function()
+      require('neodev').setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      })
+    end,
+    priority = 1000,
+  },
+
+  {
     'nvim-telescope/telescope.nvim',
     dependencies = { { 'nvim-lua/plenary.nvim' } },
   },
@@ -190,11 +200,27 @@ return {
     config = function()
       require('marks').setup()
     end,
+  },
+
+  {
+    "microsoft/vscode-js-debug",
+    build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
+  },
+
+  'theHamsta/nvim-dap-virtual-text',
+
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = { 'mfussenegger/nvim-dap', "nvim-neotest/nvim-nio" },
+    config = function()
+      require('dapui').setup()
+    end,
+  },
+
+
+  {
+    'mxsdev/nvim-dap-vscode-js',
+    dependencies = { 'mfussenegger/nvim-dap' },
   }
 
-  -- {
-  --   'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap' }
-  -- },
-
-  -- 'theHamsta/nvim-dap-virtual-text'
 }

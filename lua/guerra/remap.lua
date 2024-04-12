@@ -10,6 +10,7 @@ local lint = require('lint')
 local ufo = require('ufo')
 local trouble = require('trouble')
 local oil = require('oil')
+local dapui = require('dapui')
 
 tc.load_extension('harpoon')
 
@@ -26,9 +27,27 @@ wk.register({
     o = { tc.extensions.git_worktree.git_worktrees, 'Git worktrees' },
     c = { tc.extensions.git_worktree.create_git_worktree, 'Create git worktree' },
     n = { tc_builtin.marks, 'Marks' },
+    j = {
+      name = 'git',
+      s = { tc_builtin.git_status, 'git status' },
+      b = { tc_builtin.git_branches, 'git branches' },
+      c = { tc_builtin.git_commits, 'git commits' },
+      l = { tc_builtin.git_bcommits, 'git buffer commits' },
+    },
   },
   ['<space>'] = { tc_builtin.resume, 'Resume' },
   b = { tc_builtin.buffers, 'Buffers' },
+
+  -- debugger
+  e = {
+    name = 'Debugger',
+    t = { dapui.toggle, 'Toggle UI' },
+    b = { '<cmd>DapToggleBreakpoint<CR>', 'Toggle breakpoint' },
+    c = { '<cmd>DapContinue<CR>', 'Toggle breakpoint' },
+    r = { function()
+      dapui.open({ reset = true })
+    end, 'Toggle breakpoint' },
+  },
 
   -- Harpoon
   h = { ui.nav_next, 'Next Harpoon Mark' },
@@ -76,7 +95,7 @@ wk.register({
   ['<S-d>'] = { '"_d', 'Deletes preserving register' },
 
   s = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'Replace current word' },
-  X = { '<cmd>!chmod +x %<CR>', 'Turns file to executable' },
+  -- X = { '<cmd>!chmod +x %<CR>', 'Turns file to executable' },
 
   j = { '<cmd>bprevious<cr>', 'previous buffer file' },
   k = { '<cmd>bnext<cr>', 'next buffer file' },
@@ -164,6 +183,10 @@ wk.register({
   y = { '"+y', 'Yank to + register' },
   Y = { '"+Y', 'Yank # lines to + register' },
   d = { '"_d', 'Deletes preserving register' },
+  g = {
+    name = 'Telescope - visual mode',
+    l = { tc_builtin.git_bcommits_range, 'git buffer commits range' }
+  },
 }, { prefix = '<leader>', mode = 'v' })
 
 wk.register({

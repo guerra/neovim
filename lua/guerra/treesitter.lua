@@ -102,6 +102,16 @@ require 'nvim-treesitter.configs'.setup {
       }
     },
 
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      floating_preview_opts = {},
+      peek_definition_code = {
+        ["<leader>rf"] = { query = "@function.outer", desc = "@function.outer - peek definition" },
+        ["<leader>rF"] = { query = "@class.outer", desc = "@class.outer - peek definition" },
+      },
+    },
+
     -- swap = {
     --   enable = true,
     --   swap_next = {
