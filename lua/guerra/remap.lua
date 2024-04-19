@@ -27,6 +27,9 @@ wk.register({
     o = { tc.extensions.git_worktree.git_worktrees, 'Git worktrees' },
     c = { tc.extensions.git_worktree.create_git_worktree, 'Create git worktree' },
     n = { tc_builtin.marks, 'Marks' },
+    k = { tc_builtin.jumplist, 'Jumplist' },
+    l = { tc_builtin.quickfixhistory, 'Quickfix' },
+    L = { tc_builtin.registers, 'Registers' },
     j = {
       name = 'git',
       s = { tc_builtin.git_status, 'git status' },
