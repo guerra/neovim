@@ -211,7 +211,14 @@ wk.register({
       'Peek fold',
     },
   },
-
+  ['<C-k>'] = { '<cmd>wincmd k<cr>', 'Move up' },
+  ['<C-j>'] = { '<cmd>wincmd j<cr>', 'Move down' },
+  ['<C-h>'] = { '<cmd>wincmd h<cr>', 'Move left' },
+  ['<C-l>'] = { '<cmd>wincmd l<cr>', 'Move right' },
+  ['<C-h>'] = { "<cmd><C-U>TmuxNavigateLeft<cr>" },
+  ['<C-j>'] = { "<cmd><C-U>TmuxNavigateDown<cr>" },
+  ['<C-k>'] = { "<cmd><C-U>TmuxNavigateUp<cr>" },
+  ['<C-l>'] = { "<cmd><C-U>TmuxNavigateRight<cr>" },
 }, { prefix = '' })
 
 wk.register({

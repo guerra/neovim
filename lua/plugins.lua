@@ -221,6 +221,9 @@ return {
   {
     'mxsdev/nvim-dap-vscode-js',
     dependencies = { 'mfussenegger/nvim-dap' },
-  }
+  },
 
+  {
+    'christoomey/vim-tmux-navigator',
+  }
 }
