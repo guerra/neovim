@@ -194,9 +194,9 @@ wk.register({
 
 wk.register({
   ['<C-c>'] = { '<cmd>nohlsearch<CR>', 'Remove search' },
-  ['<c-e>'] = { ui.toggle_quick_menu, 'Open harpoon' },
-  ['<A-k>'] = { 'mz<cmd>m-2<cr>`z', 'Move line Up' },
-  ['<A-j>'] = { 'mz<cmd>m+<cr>`z', 'Move line Down' },
+  ['<C-e>'] = { ui.toggle_quick_menu, 'Open harpoon' },
+  ['<A-K>'] = { 'mz<cmd>m-2<cr>`z', 'Move line Up' },
+  ['<A-J>'] = { 'mz<cmd>m+<cr>`z', 'Move line Down' },
   z = {
     name = 'fold',
     M = { ufo.closeAllFolds, 'Close all folds' },
@@ -211,14 +211,10 @@ wk.register({
       'Peek fold',
     },
   },
-  ['<C-k>'] = { '<cmd>wincmd k<cr>', 'Move up' },
-  ['<C-j>'] = { '<cmd>wincmd j<cr>', 'Move down' },
-  ['<C-h>'] = { '<cmd>wincmd h<cr>', 'Move left' },
-  ['<C-l>'] = { '<cmd>wincmd l<cr>', 'Move right' },
-  ['<C-h>'] = { "<cmd><C-U>TmuxNavigateLeft<cr>" },
-  ['<C-j>'] = { "<cmd><C-U>TmuxNavigateDown<cr>" },
-  ['<C-k>'] = { "<cmd><C-U>TmuxNavigateUp<cr>" },
-  ['<C-l>'] = { "<cmd><C-U>TmuxNavigateRight<cr>" },
+  -- ['<A-k>'] = { '<cmd>wincmd k<cr>', 'Move up' },
+  -- ['<A-j>'] = { '<cmd>wincmd j<cr>', 'Move down' },
+  -- ['<A-h>'] = { '<cmd>wincmd h<cr>', 'Move left' },
+  -- ['<A-l>'] = { '<cmd>wincmd l<cr>', 'Move right' },
 }, { prefix = '' })
 
 wk.register({
@@ -226,8 +222,8 @@ wk.register({
   -- y = { '"+y', 'Yank to + register' },
   -- Y = { '"+Y', 'Yank # lines to + register' },
   d = { '"_d', 'Deletes preserving register' },
-  ['<A-k>'] = { '<cmd>m\'<-2<cr>`>my`<mzgv`yo`z', 'Move selected lines up' },
-  ['<A-j>'] = { '<cmd>m\'>+<cr>`<my`>mzgv`yo`z', 'Move selected lines down' },
+  ['<A-K>'] = { '<cmd>m\'<-2<cr>`>my`<mzgv`yo`z', 'Move selected lines up' },
+  ['<A-J>'] = { '<cmd>m\'>+<cr>`<my`>mzgv`yo`z', 'Move selected lines down' },
 }, { prefix = '', mode = 'v' })
 
 -- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
