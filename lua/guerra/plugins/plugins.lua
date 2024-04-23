@@ -209,27 +209,6 @@ return {
   },
 
   {
-    "microsoft/vscode-js-debug",
-    build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
-  },
-
-  'theHamsta/nvim-dap-virtual-text',
-
-  {
-    'rcarriga/nvim-dap-ui',
-    dependencies = { 'mfussenegger/nvim-dap', "nvim-neotest/nvim-nio" },
-    config = function()
-      require('dapui').setup()
-    end,
-  },
-
-
-  {
-    'mxsdev/nvim-dap-vscode-js',
-    dependencies = { 'mfussenegger/nvim-dap' },
-  },
-
-  {
     'alexghergh/nvim-tmux-navigation',
     config = function()
       local nvim_tmux_nav = require('nvim-tmux-navigation')
@@ -241,5 +220,5 @@ return {
       vim.keymap.set('n', "<A-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
       vim.keymap.set('n', "<A-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
     end
-  }
+  },
 }
