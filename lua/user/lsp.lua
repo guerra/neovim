@@ -55,6 +55,7 @@ require('mason-lspconfig').setup({
     'templ',
     'elixirls',
   },
+
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()

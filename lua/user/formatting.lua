@@ -12,7 +12,9 @@ require('conform').setup({
     graphql = { 'prettier' },
     lua = { 'stylua' },
     elixir = { 'mix' },
-    shell = { 'shellharden' },
+    shell = { 'shfmt' },
+    bash = { 'shfmt' },
+    sh = { 'shfmt' },
   },
   format_on_save = {
     lsp_fallback = true,
