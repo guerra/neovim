@@ -11,11 +11,6 @@ return {
     priority = 1000,
   },
 
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = { { 'nvim-lua/plenary.nvim' } },
-  },
-
   { 'axkirillov/easypick.nvim', dependencies = 'nvim-telescope/telescope.nvim' },
 
   -- all keybindings here
@@ -56,8 +51,6 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' }
   },
 
-  -- harpoon
-  { 'theprimeagen/harpoon' },
   { 'mbbill/undotree' },
 
   {
