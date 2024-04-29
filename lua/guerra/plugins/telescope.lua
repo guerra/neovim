@@ -7,7 +7,7 @@ return {
         defaults = {
           path_display = {
             filename_first = {
-              reverse_directories = true
+              reverse_directories = false
             }
           },
         }
