@@ -1,6 +1,4 @@
 return {
-  'famiu/bufdelete.nvim',
-
   {
     'folke/neodev.nvim',
     config = function()

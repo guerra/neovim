@@ -97,13 +97,8 @@ wk.register({
   P = { '"+p', 'Pastes + register' },
   ['<S-d>'] = { '"_d', 'Deletes preserving register' },
 
-  s = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'Replace current word' },
+  -- s = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'Replace current word' },
   -- X = { '<cmd>!chmod +x %<CR>', 'Turns file to executable' },
-
-  j = { '<cmd>bprevious<cr>', 'previous buffer file' },
-  k = { '<cmd>bnext<cr>', 'next buffer file' },
-  d = { '<cmd>Bdelete<cr>', 'Belete buffer' },
-  D = { '<cmd>%Bdelete<cr>', 'delete all buffer' },
 
   c = {
     name = 'ChatGPT',
