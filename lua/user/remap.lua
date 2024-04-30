@@ -59,19 +59,19 @@ wk.register({
   a = { ui.toggle_quick_menu, 'Open harpoon' },
   ['1'] = {
     function()
-      tmux.gotoTerminal(1)
+      tmux.gotoTerminal(7)
     end,
     'Open term 1',
   },
   ['2'] = {
     function()
-      tmux.gotoTerminal(2)
+      tmux.gotoTerminal(8)
     end,
     'Open term 2',
   },
   ['3'] = {
     function()
-      tmux.gotoTerminal(3)
+      tmux.gotoTerminal(9)
     end,
     'Open term 3',
   },
