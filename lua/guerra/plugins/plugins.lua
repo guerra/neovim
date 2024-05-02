@@ -63,7 +63,12 @@ return {
       { 'neovim/nvim-lspconfig' },
 
       -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
+      {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+          'onsails/lspkind.nvim'
+        }
+      },
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'L3MON4D3/LuaSnip' },
     },
@@ -126,10 +131,6 @@ return {
     config = function()
       require('oil').setup()
     end,
-  },
-
-  {
-    "github/copilot.vim",
   },
 
   -- {
