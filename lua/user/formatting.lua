@@ -15,6 +15,7 @@ require('conform').setup({
     shell = { 'shfmt' },
     bash = { 'shfmt' },
     sh = { 'shfmt' },
+    haskell = { 'fourmolu' },
   },
   format_on_save = {
     lsp_fallback = true,
