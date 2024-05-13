@@ -57,6 +57,7 @@ return {
           sh = true,
           dockerfile = true,
           haskell = true,
+          sql = true,
         }
       })
     end,

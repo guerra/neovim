@@ -52,6 +52,7 @@ require('mason-lspconfig').setup({
     'bashls',
     'templ',
     'elixirls',
+    'sqlls',
   },
 
   handlers = {

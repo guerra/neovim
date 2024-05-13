@@ -16,6 +16,8 @@ require('conform').setup({
     bash = { 'shfmt' },
     sh = { 'shfmt' },
     haskell = { 'fourmolu' },
+    go = { "gofumpt", "goimports", },
+    sql = { "sqlfmt" },
   },
   format_on_save = {
     lsp_fallback = true,
