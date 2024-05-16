@@ -156,11 +156,6 @@ return {
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-
-  {
     'chentoast/marks.nvim',
     config = function()
       require('marks').setup()
