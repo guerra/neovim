@@ -8,13 +8,17 @@ local conform = require('conform')
 local lint = require('lint')
 -- local rest = require('rest-nvim')
 local ufo = require('ufo')
-local trouble = require('trouble')
 local oil = require('oil')
 local dapui = require('dapui')
 
 tc.load_extension('harpoon')
 
 wk.register({
+  v = {
+    name = 'Vim actions',
+    r = { name = 'Review' },
+  },
+
   g = {
     name = 'Telescope',
     f = { tc_builtin.find_files, 'Find files' },
@@ -142,24 +146,9 @@ wk.register({
 
   x = {
     name = 'trouble',
-    x = {
-      function()
-        trouble.toggle()
-      end,
-      'Toggle',
-    },
-    w = {
-      function()
-        trouble.toggle('workspace_diagnostics')
-      end,
-      'Workspace Diagnostics',
-    },
-    d = {
-      function()
-        trouble.toggle('document_diagnostics')
-      end,
-      'Document Diagnostics',
-    },
+    x = { '<cmd>Trouble diagnostics toggle<cr>', 'Toggle' },
+    w = { '<cmd>Trouble workspace_diagnostics toggle<cr>', 'Workspace Diagnostics' },
+    d = { '<cmd>Trouble document_diagnostics toggle<cr>', 'Document Diagnostics' },
     q = {
       function()
         trouble.toggle('quickfix')

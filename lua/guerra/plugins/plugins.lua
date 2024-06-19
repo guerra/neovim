@@ -102,8 +102,6 @@ return {
 
   { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async' },
 
-  { 'folke/trouble.nvim',    dependencies = 'nvim-tree/nvim-web-devicons' },
-
   {
     'nvim-lualine/lualine.nvim',
     config = function()
