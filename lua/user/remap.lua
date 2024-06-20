@@ -147,20 +147,13 @@ wk.register({
   x = {
     name = 'trouble',
     x = { '<cmd>Trouble diagnostics toggle<cr>', 'Toggle' },
-    w = { '<cmd>Trouble workspace_diagnostics toggle<cr>', 'Workspace Diagnostics' },
-    d = { '<cmd>Trouble document_diagnostics toggle<cr>', 'Document Diagnostics' },
-    q = {
-      function()
-        trouble.toggle('quickfix')
-      end,
-      'Quickfix',
-    },
-    l = {
-      function()
-        trouble.toggle('loclist')
-      end,
-      'Localtion List',
-    },
+    w = { '<cmd>Trouble diagnostics toggle<cr>', 'Workspace Diagnostics' },
+    d = { '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', 'Document Diagnostics' },
+    s = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)" },
+    l = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Definitions / references " },
+    q = { "<cmd>Trouble qflist toggle<cr>", "Quickfix List" },
+    L = { "<cmd>Trouble loclist toggle<cr>", "Location List" },
+
 
   },
 }, { prefix = '<leader>' })
