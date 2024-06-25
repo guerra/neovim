@@ -147,8 +147,8 @@ wk.register({
   x = {
     name = 'trouble',
     x = { '<cmd>Trouble diagnostics toggle<cr>', 'Toggle' },
-    w = { '<cmd>Trouble diagnostics toggle<cr>', 'Workspace Diagnostics' },
     d = { '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', 'Document Diagnostics' },
+    w = { '<cmd>Trouble diagnostics toggle<cr>', 'Workspace Diagnostics' },
     s = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)" },
     l = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Definitions / references " },
     q = { "<cmd>Trouble qflist toggle<cr>", "Quickfix List" },
@@ -186,6 +186,14 @@ wk.register({
         end
       end,
       'Peek fold',
+    },
+    t = { function()
+      vim.o.foldcolumn = vim.o.foldcolumn == '1' and '0' or '1'
+      vim.o.signcolumn = vim.o.signcolumn == "yes" and "no" or "yes"
+      vim.o.relativenumber = not vim.o.relativenumber
+      vim.o.number = not vim.o.number
+    end,
+      'Toggle fold column',
     },
   },
   -- ['<A-k>'] = { '<cmd>wincmd k<cr>', 'Move up' },
