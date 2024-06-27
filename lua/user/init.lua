@@ -1,6 +1,5 @@
 require('user.vim')
 require('user.formatting')
-require('user.linting')
 require('user.lsp')
 require('user.treesitter')
 require('user.remap')

@@ -38,6 +38,12 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set('i', '<C-h>', function()
     vim.lsp.buf.signature_help()
   end, { buffer = bufnr, remap = false, desc = 'Signature help' })
+  vim.keymap.set('n', '<leader>vl', function()
+    vim.lsp.buf.code_action({
+      filter = function(a) return a.isPreferred end,
+      apply = true
+    })
+  end, { buffer = bufnr, remap = false, desc = 'call lint fix' })
 end)
 
 require('mason').setup({})

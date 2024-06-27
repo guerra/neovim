@@ -5,7 +5,6 @@ local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
 local tmux = require('harpoon.tmux')
 local conform = require('conform')
-local lint = require('lint')
 -- local rest = require('rest-nvim')
 local ufo = require('ufo')
 local oil = require('oil')
@@ -136,13 +135,6 @@ wk.register({
   --   name = 'Rest',
   --   r = { rest.run, 'run request' },
   -- },
-
-  I = {
-    function()
-      lint.try_lint()
-    end,
-    'Trigger linting',
-  },
 
   x = {
     name = 'trouble',

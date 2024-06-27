@@ -82,8 +82,6 @@ return {
   },
 
   'stevearc/conform.nvim',
-  'mfussenegger/nvim-lint',
-
   {
     'cappyzawa/trim.nvim',
     config = function()
