@@ -185,7 +185,7 @@ wk.register({
       vim.o.relativenumber = not vim.o.relativenumber
       vim.o.number = not vim.o.number
     end,
-      'Toggle fold column',
+      'Toggle line number and fold column',
     },
   },
   -- ['<A-k>'] = { '<cmd>wincmd k<cr>', 'Move up' },

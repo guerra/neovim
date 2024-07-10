@@ -59,6 +59,7 @@ require('mason-lspconfig').setup({
     'templ',
     'elixirls',
     'sqlls',
+    'solargraph',
   },
 
   handlers = {

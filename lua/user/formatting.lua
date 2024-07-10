@@ -18,6 +18,7 @@ require('conform').setup({
     haskell = { 'fourmolu' },
     go = { "gofumpt", "goimports", },
     sql = { "sqlfmt" },
+    ruby = { "rubocop" },
   },
   format_on_save = {
     lsp_fallback = true,
