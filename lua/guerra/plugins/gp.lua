@@ -18,17 +18,18 @@ return {
         },
       },
       agents = {
-        -- {
-        --   name = "ChatGPT3-5",
-        --   disable = true,
-        -- },
         {
-          name = "gpt 4 turbo copilot",
+          name = "ChatCopilot",
+          disable = true,
+        },
+        {
+          name = "gpt 4o copilot",
           provider = "copilot",
           chat = true,
           command = true,
           model = { model = "gpt-4o" },
-          system_prompt = "Be always succint and clear, and never use more words than needed.",
+          system_prompt =
+          "Always asnwer with the most succint and clear response possible. Don't talk about other things than asked.",
         },
         {
           name = "gpt4 turbo openai",
