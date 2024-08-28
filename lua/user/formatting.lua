@@ -19,6 +19,7 @@ require('conform').setup({
     go = { "gofumpt", "goimports", },
     sql = { "sqlfmt" },
     ruby = { "rubocop" },
+    templ = { "templ" },
   },
   format_on_save = {
     lsp_fallback = true,

@@ -60,6 +60,7 @@ return {
           haskell = true,
           sql = true,
           ruby = true,
+          templ = true,
         }
       })
     end,
