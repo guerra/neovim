@@ -1,6 +1,7 @@
 local wk = require('which-key')
 local tc = require('telescope')
 local tc_builtin = require('telescope.builtin')
+local tc_utils = require('telescope.utils')
 local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
 local tmux = require('harpoon.tmux')
@@ -9,6 +10,11 @@ local conform = require('conform')
 local ufo = require('ufo')
 local oil = require('oil')
 local dapui = require('dapui')
+
+local get_visual_selection = function()
+  vim.cmd('noautocmd normal! "vy"')
+  return vim.fn.getreg('v')
+end
 
 tc.load_extension('harpoon')
 
@@ -21,7 +27,7 @@ wk.register({
   g = {
     name = 'Telescope',
     f = { tc_builtin.find_files, 'Find files' },
-    G = { tc_builtin.git_files, 'Git file search' },
+    J = { tc_builtin.git_files, 'Git file search' },
     h = { '<cmd>Telescope harpoon marks<cr>', 'Harpoon' },
     H = { tc_builtin.help_tags, 'Vim help' },
     g = { tc_builtin.live_grep, 'Live grep' },
@@ -40,9 +46,14 @@ wk.register({
       c = { tc_builtin.git_commits, 'git commits' },
       l = { tc_builtin.git_bcommits, 'git buffer commits' },
     },
+    G = { function()
+      local word = vim.fn.expand('<cword>')
+      tc_builtin.grep_string { search = word }
+    end, 'Live grep current word' },
   },
   ['<space>'] = { tc_builtin.resume, 'Resume' },
   b = { tc_builtin.buffers, 'Buffers' },
+
 
   -- debugger
   e = {
@@ -103,23 +114,6 @@ wk.register({
   -- s = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'Replace current word' },
   -- X = { '<cmd>!chmod +x %<CR>', 'Turns file to executable' },
 
-  c = {
-    name = 'ChatGPT',
-    c = { '<cmd>ChatGPT<CR>', 'ChatGPT' },
-    e = { '<cmd>ChatGPTEditWithInstruction<CR>', 'Edit with instruction', mode = { 'n', 'v' } },
-    g = { '<cmd>ChatGPTRun grammar_correction<CR>', 'Grammar Correction', mode = { 'n', 'v' } },
-    t = { '<cmd>ChatGPTRun translate<CR>', 'Translate', mode = { 'n', 'v' } },
-    k = { '<cmd>ChatGPTRun keywords<CR>', 'Keywords', mode = { 'n', 'v' } },
-    ['<C-d>'] = { '<cmd>ChatGPTRun docstring<CR>', 'Docstring', mode = { 'n', 'v' } },
-    a = { '<cmd>ChatGPTRun add_tests<CR>', 'Add Tests', mode = { 'n', 'v' } },
-    o = { '<cmd>ChatGPTRun optimize_code<CR>', 'Optimize Code', mode = { 'n', 'v' } },
-    s = { '<cmd>ChatGPTRun summarize<CR>', 'Summarize', mode = { 'n', 'v' } },
-    f = { '<cmd>ChatGPTRun fix_bugs<CR>', 'Fix Bugs', mode = { 'n', 'v' } },
-    x = { '<cmd>ChatGPTRun explain_code<CR>', 'Explain Code', mode = { 'n', 'v' } },
-    r = { '<cmd>ChatGPTRun roxygen_edit<CR>', 'Roxygen Edit', mode = { 'n', 'v' } },
-    l = { '<cmd>ChatGPTRun code_readability_analysis<CR>', 'Code Readability Analysis', mode = { 'n', 'v' } },
-  },
-
   t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" }, -- create a binding with label
   o = { function() oil.toggle_float('.') end, 'Open oil' },
   O = { oil.toggle_float, 'Open oil' },
@@ -157,7 +151,12 @@ wk.register({
   d = { '"_d', 'Deletes preserving register' },
   g = {
     name = 'Telescope - visual mode',
-    l = { tc_builtin.git_bcommits_range, 'git buffer commits range' }
+    l = { tc_builtin.git_bcommits_range, 'git buffer commits range' },
+    g = { function()
+      local text = get_visual_selection() or ''
+      tc_builtin.grep_string { search = text }
+    end, 'Live grep selection' },
+
   },
 }, { prefix = '<leader>', mode = 'v' })
 
