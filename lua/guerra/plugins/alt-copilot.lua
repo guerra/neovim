@@ -61,6 +61,7 @@ return {
           sql = true,
           ruby = true,
           templ = true,
+          rails = true,
         }
       })
     end,
