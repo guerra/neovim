@@ -9,7 +9,7 @@ local conform = require('conform')
 -- local rest = require('rest-nvim')
 local ufo = require('ufo')
 local oil = require('oil')
-local dapui = require('dapui')
+-- local dapui = require('dapui')
 
 local get_visual_selection = function()
   vim.cmd('noautocmd normal! "vy"')
@@ -56,21 +56,21 @@ wk.register({
 
 
   -- debugger
-  e = {
-    name = 'Debugger',
-    t = { dapui.toggle, 'Toggle UI' },
-    b = { '<cmd>DapToggleBreakpoint<CR>', 'Toggle breakpoint' },
-    c = { '<cmd>DapContinue<CR>', 'Toggle breakpoint' },
-    r = { function()
-      dapui.open({ reset = true })
-    end, 'Toggle breakpoint' },
-  },
+  -- e = {
+  --   name = 'Debugger',
+  --   t = { dapui.toggle, 'Toggle UI' },
+  --   b = { '<cmd>DapToggleBreakpoint<CR>', 'Toggle breakpoint' },
+  --   c = { '<cmd>DapContinue<CR>', 'Toggle breakpoint' },
+  --   r = { function()
+  --     dapui.open({ reset = true })
+  --   end, 'Toggle breakpoint' },
+  -- },
 
   -- Harpoon
   h = { ui.nav_next, 'Next Harpoon Mark' },
   l = { ui.nav_prev, 'Prev Harpoon Mark' },
   m = { mark.add_file, 'Add file to harpoon' },
-  a = { ui.toggle_quick_menu, 'Open harpoon' },
+  A = { ui.toggle_quick_menu, 'Open harpoon' },
   ['1'] = {
     function()
       tmux.gotoTerminal(7)
