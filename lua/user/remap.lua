@@ -8,8 +8,8 @@ local tmux = require('harpoon.tmux')
 local conform = require('conform')
 -- local rest = require('rest-nvim')
 local ufo = require('ufo')
-local oil = require('oil')
 -- local dapui = require('dapui')
+local obsidian = require('obsidian')
 
 local get_visual_selection = function()
   vim.cmd('noautocmd normal! "vy"')
@@ -18,6 +18,15 @@ end
 
 tc.load_extension('harpoon')
 
+wk.add(
+  {
+    { "<leader>o",  group = "Obsidian" },
+    { "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>",     desc = "Obsidian Quick Switch" },
+    { "<leader>oc", "<cmd>ObsidianNew<cr>",             desc = "Obsidian New" },
+    { "<leader>ot", "<cmd>ObsidianNewFromTemplate<cr>", desc = "Obsidian new from template" },
+    { "<leader>od", "<cmd>ObsidianDailies<cr>",         desc = "Obsidian dailies" },
+  }
+)
 wk.register({
   v = {
     name = 'Vim actions',
@@ -51,6 +60,7 @@ wk.register({
       tc_builtin.grep_string { search = word }
     end, 'Live grep current word' },
   },
+
   ['<space>'] = { tc_builtin.resume, 'Resume' },
   b = { tc_builtin.buffers, 'Buffers' },
 
@@ -115,8 +125,6 @@ wk.register({
   -- X = { '<cmd>!chmod +x %<CR>', 'Turns file to executable' },
 
   t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" }, -- create a binding with label
-  o = { function() oil.toggle_float('.') end, 'Open oil' },
-  O = { oil.toggle_float, 'Open oil' },
 
   q = {
     name = 'Aerial tags',

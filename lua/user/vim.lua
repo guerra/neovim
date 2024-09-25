@@ -59,9 +59,16 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
-local keymap = vim.keymap
+local oil = require('oil')
 
-keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })     -- split window vertically
-keymap.set("n", "<leader>ss", "<C-w>s", { desc = "Split window horizontally" })   -- split window horizontally
-keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })      -- make split windows equal width & height
-keymap.set("n", "<leader>sc", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
+require("which-key").add(
+  {
+    { "<leader>s",  group = "Editor / Filesystem" },
+    { "<leader>sO", oil.toggle_float,                     desc = "Open oil in current folder" },
+    { "<leader>sc", "<cmd>close<CR>",                     desc = "Close current split" },
+    { "<leader>se", "<C-w>=",                             desc = "Make splits equal size" },
+    { "<leader>so", function() oil.toggle_float('.') end, desc = "Open oil" },
+    { "<leader>ss", "<C-w>s",                             desc = "Split window horizontally" },
+    { "<leader>sv", "<C-w>v",                             desc = "Split window vertically" },
+  }
+)
