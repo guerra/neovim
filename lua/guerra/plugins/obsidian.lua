@@ -46,7 +46,7 @@ return {
         else
           suffix = suffix .. title
         end
-        return tostring(os.time()) .. "-" .. suffix
+        return tostring("neovim notes/" .. os.time()) .. "-" .. suffix
       end,
     })
   end
