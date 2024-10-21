@@ -62,6 +62,7 @@ return {
           ruby = true,
           templ = true,
           rails = true,
+          ledger = true,
         }
       })
     end,

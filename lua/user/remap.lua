@@ -1,10 +1,6 @@
 local wk = require('which-key')
 local tc = require('telescope')
 local tc_builtin = require('telescope.builtin')
-local tc_utils = require('telescope.utils')
-local mark = require('harpoon.mark')
-local ui = require('harpoon.ui')
-local tmux = require('harpoon.tmux')
 local conform = require('conform')
 -- local rest = require('rest-nvim')
 local ufo = require('ufo')
@@ -16,7 +12,21 @@ local get_visual_selection = function()
   return vim.fn.getreg('v')
 end
 
-tc.load_extension('harpoon')
+local terminals = {
+  [3] = nil,
+  [4] = nil,
+  [5] = nil,
+}
+
+local function toggleTerminal(term)
+  if terminals[term] then
+    tmux.gotoTerminal(term)
+  else
+    tmux.openTerminal(term)
+    terminals[term] = true
+  end
+end
+
 
 wk.add(
   {
@@ -37,7 +47,6 @@ wk.register({
     name = 'Telescope',
     f = { tc_builtin.find_files, 'Find files' },
     J = { tc_builtin.git_files, 'Git file search' },
-    h = { '<cmd>Telescope harpoon marks<cr>', 'Harpoon' },
     H = { tc_builtin.help_tags, 'Vim help' },
     g = { tc_builtin.live_grep, 'Live grep' },
     q = { tc.extensions.aerial.aerial, 'Tags' },
@@ -75,30 +84,6 @@ wk.register({
   --     dapui.open({ reset = true })
   --   end, 'Toggle breakpoint' },
   -- },
-
-  -- Harpoon
-  h = { ui.nav_next, 'Next Harpoon Mark' },
-  l = { ui.nav_prev, 'Prev Harpoon Mark' },
-  m = { mark.add_file, 'Add file to harpoon' },
-  A = { ui.toggle_quick_menu, 'Open harpoon' },
-  ['1'] = {
-    function()
-      tmux.gotoTerminal(7)
-    end,
-    'Open term 1',
-  },
-  ['2'] = {
-    function()
-      tmux.gotoTerminal(8)
-    end,
-    'Open term 2',
-  },
-  ['3'] = {
-    function()
-      tmux.gotoTerminal(9)
-    end,
-    'Open term 3',
-  },
 
   -- undotree
   u = { vim.cmd.UndotreeToggle, 'Undo Tree' },
@@ -170,7 +155,6 @@ wk.register({
 
 wk.register({
   ['<C-c>'] = { '<cmd>nohlsearch<CR>', 'Remove search' },
-  ['<C-e>'] = { ui.toggle_quick_menu, 'Open harpoon' },
   ['<A-K>'] = { 'mz<cmd>m-2<cr>`z', 'Move line Up' },
   ['<A-J>'] = { 'mz<cmd>m+<cr>`z', 'Move line Down' },
   z = {
