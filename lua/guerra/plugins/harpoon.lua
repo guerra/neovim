@@ -49,9 +49,9 @@ return {
         { "<leader>h",  function() harpoon:list():prev() end,                        desc = "harpoon previous" },
         { "<leader>l",  function() harpoon:list():next() end,                        desc = "harpoon next" },
         { "<leader>gh", function() toggle_telescope(harpoon:list()) end,             desc = "harpoon telescope" },
-        { "<leader>1",  function() harpoon_tmux.go_to_terminal(3) end,               desc = "harpoon term 1" },
-        { "<leader>2",  function() harpoon_tmux.go_to_terminal(4) end,               desc = "harpoon term 2" },
-        { "<leader>3",  function() harpoon_tmux.go_to_terminal(5) end,               desc = "harpoon term 3" },
+        { "<leader>1",  function() harpoon_tmux.go_to_terminal(2) end,               desc = "harpoon term 1" },
+        { "<leader>2",  function() harpoon_tmux.go_to_terminal(3) end,               desc = "harpoon term 2" },
+        { "<leader>3",  function() harpoon_tmux.go_to_terminal(4) end,               desc = "harpoon term 3" },
       }
     )
   end,
