@@ -69,6 +69,28 @@ require('mason-lspconfig').setup({
       local lspconfig = require('lspconfig')
       lspconfig.lua_ls.setup(lua_opts)
       lspconfig['hls'].setup { filetypes = { 'haskell', 'lhaskell', 'cabal' } }
+      lspconfig['solargraph'].setup {
+        settings = {
+          solargraph = {
+            autoformat = false,
+            bundlerPath = "bundle",
+            checkGemVersion = true,
+            commandPath = "solargraph",
+            completion = true,
+            definitions = true,
+            diagnostics = true,
+            folding = true,
+            formatting = false,
+            hover = true,
+            logLevel = "warn",
+            references = true,
+            rename = true,
+            symbols = true,
+            transport = "socket",
+            useBundler = true,
+          }
+        }
+      }
     end,
   },
 })
