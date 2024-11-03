@@ -38,7 +38,18 @@ return {
       end,
     })
 
-    require('which-key').add(
+    local function send_to_harpoon(term)
+      -- Yank the selected text to the "v register
+      vim.cmd('normal! "vy')
+
+      -- Get the yanked text from the "v register
+      local text = vim.fn.getreg("v")
+
+      harpoon_tmux.send_command(term, text)
+    end
+
+    local which_key = require('which-key')
+    which_key.add(
       {
         mode = { "n" },
         nowait = true,
@@ -49,9 +60,20 @@ return {
         { "<leader>h",  function() harpoon:list():prev() end,                        desc = "harpoon previous" },
         { "<leader>l",  function() harpoon:list():next() end,                        desc = "harpoon next" },
         { "<leader>gh", function() toggle_telescope(harpoon:list()) end,             desc = "harpoon telescope" },
-        { "<leader>1",  function() harpoon_tmux.go_to_terminal(2) end,               desc = "harpoon term 1" },
-        { "<leader>2",  function() harpoon_tmux.go_to_terminal(3) end,               desc = "harpoon term 2" },
-        { "<leader>3",  function() harpoon_tmux.go_to_terminal(4) end,               desc = "harpoon term 3" },
+        { "<leader>1",  function() harpoon_tmux.go_to_terminal(2) end,               desc = "harpoon term 2" },
+        { "<leader>2",  function() harpoon_tmux.go_to_terminal(3) end,               desc = "harpoon term 3" },
+        { "<leader>3",  function() harpoon_tmux.go_to_terminal(4) end,               desc = "harpoon term 4" },
+      }
+    )
+
+    which_key.add(
+      {
+        mode = { "v" },
+        nowait = true,
+        remap = false,
+        { "<leader>!", function() send_to_harpoon(2) end, desc = "send command to term 2" },
+        { "<leader>@", function() send_to_harpoon(3) end, desc = "send command to term 3" },
+        { "<leader>#", function() send_to_harpoon(4) end, desc = "send command to term 4" },
       }
     )
   end,

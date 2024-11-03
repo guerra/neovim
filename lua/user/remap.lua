@@ -109,7 +109,7 @@ wk.register({
   -- s = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'Replace current word' },
   -- X = { '<cmd>!chmod +x %<CR>', 'Turns file to executable' },
 
-  t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" }, -- create a binding with label
+  T = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" }, -- create a binding with label
 
   q = {
     name = 'Aerial tags',
