@@ -2,6 +2,11 @@ local lsp_zero = require('lsp-zero')
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lspconfig = require('lspconfig')
+local lua_opts = lsp_zero.nvim_lua_ls()
+local luasnip = require('luasnip')
+require('luasnip.loaders.from_vscode').lazy_load()
 
 lsp_zero.on_attach(function(client, bufnr)
   if vim.fn.expand('%'):find('^.env.*$') then
@@ -46,27 +51,28 @@ lsp_zero.on_attach(function(client, bufnr)
   end, { buffer = bufnr, remap = false, desc = 'call lint fix' })
 end)
 
+local servers = {
+  'ts_ls',
+  'eslint',
+  'lua_ls',
+  'gopls',
+  'html',
+  'htmx',
+  'bashls',
+  'templ',
+  'elixirls',
+  'sqlls',
+  'solargraph',
+}
+
+lua_opts.capabilities = capabilities
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {
-    'ts_ls',
-    'eslint',
-    'lua_ls',
-    'gopls',
-    'html',
-    'htmx',
-    'bashls',
-    'templ',
-    'elixirls',
-    'sqlls',
-    'solargraph',
-  },
-
+  ensure_installed = servers,
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()
-      local lua_opts = lsp_zero.nvim_lua_ls()
-      local lspconfig = require('lspconfig')
       lspconfig.lua_ls.setup(lua_opts)
       lspconfig['hls'].setup { filetypes = { 'haskell', 'lhaskell', 'cabal' } }
       lspconfig['solargraph'].setup {
@@ -96,11 +102,17 @@ require('mason-lspconfig').setup({
 })
 
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
   sources = {
     { name = 'path' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'copilot' },
+    { name = 'luasnip' },
   },
   window = {
     completion = {
@@ -120,10 +132,29 @@ cmp.setup({
       return kind
     end,
   },
+
   -- formatting = lsp_zero.cmp_format(),
   mapping = cmp.mapping.preset.insert({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-p>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item(cmp_select)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<C-n>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item(cmp_select)
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
     ['<C-o>'] = cmp.mapping.complete(),
   }),
