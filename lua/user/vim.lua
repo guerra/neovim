@@ -61,9 +61,11 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 local oil = require('oil')
+local whichkey = require("which-key")
 
-require("which-key").add(
+whichkey.add(
   {
+    mode = "n",
     { "<leader>s",  group = "Editor / Filesystem" },
     { "<leader>sO", oil.toggle_float,                     desc = "Open oil in current folder" },
     { "<leader>sc", "<cmd>close<CR>",                     desc = "Close current split" },
@@ -71,5 +73,19 @@ require("which-key").add(
     { "<leader>so", function() oil.toggle_float('.') end, desc = "Open oil" },
     { "<leader>ss", "<C-w>s",                             desc = "Split window horizontally" },
     { "<leader>sv", "<C-w>v",                             desc = "Split window vertically" },
+    {
+      "<leader>sr",
+      function()
+        whichkey.show('"')
+      end,
+      desc = "get register"
+    },
+    {
+      "<leader>sm",
+      function()
+        whichkey.show('`')
+      end,
+      desc = "jump to mark"
+    },
   }
 )
