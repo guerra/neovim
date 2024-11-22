@@ -45,8 +45,8 @@ require 'nvim-treesitter.configs'.setup {
       enable = true,
       lookahead = true,
       keymaps = {
-        -- ["af"] = { query = "@function.outer", desc = "@function.outer - select function" },
-        -- ["if"] = { query = "@function.inner", desc = "@function.inner - select function" },
+        ["af"] = { query = "@function.outer", desc = "@function.outer - select function" },
+        ["if"] = { query = "@function.inner", desc = "@function.inner - select function" },
         -- ["av"] = { query = "@parameter.outer", desc = "@parameter.outer - select parameter" },
         -- ["iv"] = { query = "@parameter.inner", desc = "@parameter.inner - select parameter" },
         ["ic"] = { query = "@class.inner", desc = "@class.inner - select class" },

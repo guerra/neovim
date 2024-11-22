@@ -49,6 +49,19 @@ lsp_zero.on_attach(function(client, bufnr)
       apply = true
     })
   end, { buffer = bufnr, remap = false, desc = 'call lint fix' })
+  vim.keymap.set('n', '<leader>ci', function()
+    vim.lsp.buf.code_action({
+      context = {
+        diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
+        only = { "source.organizeImports" }
+      },
+      apply = true
+    })
+  end, { buffer = bufnr, remap = false, desc = 'Import module under cursor' })
+
+  vim.api.nvim_set_keymap('n', '<leader>ca',
+    '<cmd>lua vim.lsp.buf.code_action()<CR>',
+    { noremap = true, silent = true, desc = 'Code actions' })
 end)
 
 local servers = {
