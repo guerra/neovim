@@ -1,3 +1,4 @@
+require('luasnip.loaders.from_vscode').lazy_load()
 local lsp_zero = require('lsp-zero')
 
 local cmp = require('cmp')
@@ -6,7 +7,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
 local lua_opts = lsp_zero.nvim_lua_ls()
 local luasnip = require('luasnip')
-require('luasnip.loaders.from_vscode').lazy_load()
 
 lsp_zero.on_attach(function(client, bufnr)
   if vim.fn.expand('%'):find('^.env.*$') then
@@ -53,7 +53,7 @@ lsp_zero.on_attach(function(client, bufnr)
     vim.lsp.buf.code_action({
       context = {
         diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
-        only = { "source.organizeImports" }
+        only = { "source.fixAll" }
       },
       apply = true
     })
@@ -172,3 +172,42 @@ cmp.setup({
     ['<C-o>'] = cmp.mapping.complete(),
   }),
 })
+
+local function format_message(message, max_width)
+  local formatted_message = {}
+  while #message > max_width do
+    local part = message:sub(1, max_width)
+    local next_part = message:sub(max_width + 1)
+    table.insert(formatted_message, part)
+    message = next_part
+  end
+  table.insert(formatted_message, message)
+  return table.concat(formatted_message, "\n")
+end
+
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = '● ',
+    spacing = 4,
+  },
+  signs = true,
+  underline = true,
+  float = {
+    border = 'rounded',
+    source = 'if_many',
+    focusable = false,
+    format = function(diagnostic)
+      local message = diagnostic.message
+      local max_width = 80
+      return format_message(message, max_width)
+    end,
+  },
+  update_in_insert = false,
+  severity_sort = true,
+})
+
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
