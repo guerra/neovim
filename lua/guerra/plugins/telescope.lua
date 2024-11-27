@@ -68,12 +68,26 @@ return {
         },
       },
     }
-    ts.setup {
+    ts.setup({
+      extensions = {
+        aerial = {
+          col1_width = 4,
+          col2_width = 30,
+          format_symbol = function(symbol_path, filetype)
+            if filetype == "json" or filetype == "yaml" then
+              return table.concat(symbol_path, ".")
+            else
+              return symbol_path[#symbol_path]
+            end
+          end,
+          show_columns = "both",
+        },
+      },
       defaults = vim.tbl_extend('error', fullscreen_setup, {
         results_title = '',
         sorting_strategy = 'ascending',
         border = { prompt = { 1, 1, 1, 1 }, results = { 1, 1, 1, 1 }, preview = { 1, 1, 1, 1 }, },
       }),
-    }
+    })
   end,
 }

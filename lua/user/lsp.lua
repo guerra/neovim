@@ -148,6 +148,7 @@ cmp.setup({
 
   -- formatting = lsp_zero.cmp_format(),
   mapping = cmp.mapping.preset.insert({
+    ['<C-i>'] = cmp.mapping.complete(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-p>'] = cmp.mapping(function(fallback)

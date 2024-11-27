@@ -50,6 +50,7 @@ wk.register({
     H = { tc_builtin.help_tags, 'Vim help' },
     g = { tc_builtin.live_grep, 'Live grep' },
     q = { tc.extensions.aerial.aerial, 'Tags' },
+    R = { tc_builtin.lsp_references, 'References' },
     r = { tc_builtin.lsp_references, 'References' },
     o = { tc.extensions.git_worktree.git_worktrees, 'Git worktrees' },
     c = { tc.extensions.git_worktree.create_git_worktree, 'Create git worktree' },
@@ -108,8 +109,6 @@ wk.register({
 
   -- s = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'Replace current word' },
   -- X = { '<cmd>!chmod +x %<CR>', 'Turns file to executable' },
-
-  T = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" }, -- create a binding with label
 
   q = {
     name = 'Aerial tags',
