@@ -76,6 +76,7 @@ local servers = {
   'elixirls',
   'sqlls',
   'solargraph',
+  'intelephense',
 }
 
 lua_opts.capabilities = capabilities

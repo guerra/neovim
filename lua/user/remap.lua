@@ -2,31 +2,13 @@ local wk = require('which-key')
 local tc = require('telescope')
 local tc_builtin = require('telescope.builtin')
 local conform = require('conform')
--- local rest = require('rest-nvim')
 local ufo = require('ufo')
+-- local rest = require('rest-nvim')
 -- local dapui = require('dapui')
-local obsidian = require('obsidian')
-
 local get_visual_selection = function()
   vim.cmd('noautocmd normal! "vy"')
   return vim.fn.getreg('v')
 end
-
-local terminals = {
-  [3] = nil,
-  [4] = nil,
-  [5] = nil,
-}
-
-local function toggleTerminal(term)
-  if terminals[term] then
-    tmux.gotoTerminal(term)
-  else
-    tmux.openTerminal(term)
-    terminals[term] = true
-  end
-end
-
 
 wk.add(
   {
@@ -50,8 +32,8 @@ wk.register({
     H = { tc_builtin.help_tags, 'Vim help' },
     g = { tc_builtin.live_grep, 'Live grep' },
     q = { tc.extensions.aerial.aerial, 'Tags' },
-    R = { tc_builtin.lsp_references, 'References' },
     r = { tc_builtin.lsp_references, 'References' },
+    R = { tc.extensions.aerial.aerial, 'Aerial References' },
     o = { tc.extensions.git_worktree.git_worktrees, 'Git worktrees' },
     c = { tc.extensions.git_worktree.create_git_worktree, 'Create git worktree' },
     n = { tc_builtin.marks, 'Marks' },
@@ -131,6 +113,8 @@ wk.register({
     l = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Definitions / references " },
     q = { "<cmd>Trouble qflist toggle<cr>", "Quickfix List" },
     L = { "<cmd>Trouble loclist toggle<cr>", "Location List" },
+    j = { vim.diagnostic.goto_next, 'Next' },
+    k = { vim.diagnostic.goto_prev, 'Previous' },
 
 
   },
