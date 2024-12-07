@@ -149,6 +149,9 @@ cmp.setup({
 
   -- formatting = lsp_zero.cmp_format(),
   mapping = cmp.mapping.preset.insert({
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      fallback()
+    end, { 'i', 's' }),
     ['<C-i>'] = cmp.mapping.complete(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -213,3 +216,19 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+-- Auto-fix on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    vim.lsp.buf.code_action({
+      context = {
+        diagnostics = vim.diagnostic.get(0),
+        only = {
+          "source.fixAll",
+        },
+      },
+      apply = true,
+    })
+  end,
+})
