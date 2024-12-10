@@ -230,5 +230,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
       },
       apply = true,
     })
+    vim.api.nvim_buf_call(0, function()
+      vim.api.nvim_command('write')
+    end)
   end,
 })
