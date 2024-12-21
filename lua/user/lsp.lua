@@ -221,6 +221,10 @@ end
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
+    -- Skip if it's an oil buffer
+    if vim.bo.filetype == "oil" then
+      return
+    end
     vim.lsp.buf.code_action({
       context = {
         diagnostics = vim.diagnostic.get(0),
