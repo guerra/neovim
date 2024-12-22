@@ -110,11 +110,13 @@ wk.register({
     d = { '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', 'Document Diagnostics' },
     w = { '<cmd>Trouble diagnostics toggle<cr>', 'Workspace Diagnostics' },
     s = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)" },
-    l = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Definitions / references " },
+    r = { "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", "LSP Definitions / references " },
     q = { "<cmd>Trouble qflist toggle<cr>", "Quickfix List" },
     L = { "<cmd>Trouble loclist toggle<cr>", "Location List" },
     j = { vim.diagnostic.goto_next, 'Next' },
     k = { vim.diagnostic.goto_prev, 'Previous' },
+    h = { vim.cmd.cprev, 'Previous in Quickfix' },
+    l = { vim.cmd.cnext, 'Next in Quickfix' },
 
 
   },
