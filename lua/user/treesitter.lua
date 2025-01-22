@@ -42,7 +42,7 @@ require('nvim-treesitter.configs').setup({
 require 'nvim-treesitter.configs'.setup {
   textobjects = {
     select = {
-      enable = true,
+      enable = false,
       lookahead = true,
       keymaps = {
         ["af"] = { query = "@function.outer", desc = "@function.outer - select function" },

@@ -1,7 +1,10 @@
 return {
-  'echasnovski/mini.map',
+  'echasnovski/mini.nvim',
   version = false,
   config = function()
+    require('mini.ai').setup()
+    require('mini.surround').setup()
+
     local map = require('mini.map')
     map.setup({
       symbols = {
@@ -15,6 +18,6 @@ return {
         scroll_view = '┃',
       },
     });
-    vim.keymap.set('n', '<leader>çm', map.toggle, { desc = "Toggle minimap" })
-  end
+    vim.keymap.set('n', '<leader>;', map.toggle, { desc = "Toggle minimap" })
+  end,
 }
