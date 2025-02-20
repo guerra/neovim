@@ -42,11 +42,11 @@ require('nvim-treesitter.configs').setup({
 require 'nvim-treesitter.configs'.setup {
   textobjects = {
     select = {
-      enable = false,
+      enable = true,
       lookahead = true,
       keymaps = {
-        ["af"] = { query = "@function.outer", desc = "@function.outer - select function" },
-        ["if"] = { query = "@function.inner", desc = "@function.inner - select function" },
+        ["aF"] = { query = "@function.outer", desc = "@function.outer - select function" },
+        ["iF"] = { query = "@function.inner", desc = "@function.inner - select function" },
         -- ["av"] = { query = "@parameter.outer", desc = "@parameter.outer - select parameter" },
         -- ["iv"] = { query = "@parameter.inner", desc = "@parameter.inner - select parameter" },
         ["ic"] = { query = "@class.inner", desc = "@class.inner - select class" },
