@@ -60,7 +60,10 @@ return {
       { 'williamboman/mason-lspconfig.nvim' },
 
       -- LSP Support
-      { 'neovim/nvim-lspconfig' },
+      {
+        'neovim/nvim-lspconfig',
+        version = "*"
+      },
 
       -- Autocompletion
       {
@@ -74,7 +77,8 @@ return {
       },
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'saadparwaiz1/cmp_luasnip' },
-      { 'L3MON4D3/LuaSnip',
+      {
+        'L3MON4D3/LuaSnip',
         version = "v2.*",
         build = "make install_jsregexp",
       }

@@ -11,11 +11,9 @@ return {
       bg_theme = 'dusk'
     })
 
-    require('which-key').register({
-      mode = 'v',
-      nowait = true,
-      remap = false,
-      ['<leader>sp'] = { codesnap.copy_into_clipboard, 'Capture code snapshot' }
+
+    require('which-key').add({
+      { "<leader>sp", codesnap.copy_into_clipboard, desc = "Capture code snapshot", mode = "v", nowait = true, remap = false },
     })
   end
 }
