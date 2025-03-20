@@ -52,7 +52,7 @@ vim.opt.isfname:append('@-@')
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = '120'
+-- vim.opt.colorcolumn = '120'
 
 -- fold config
 vim.o.foldcolumn = '1'
@@ -89,3 +89,20 @@ whichkey.add(
     },
   }
 )
+
+vim.api.nvim_set_hl(0, "Visual", {
+  bg = "#555555", -- pick a color
+  blend = 20,     -- or 0–100, where 0 is fully opaque and 100 is fully transparent
+})
+-- vim.cmd [[
+--   highlight Normal guibg=none
+--   highlight NonText guibg=none
+--   highlight NormalNC guibg=none
+--   highlight Normal ctermbg=none
+--   highlight NonText ctermbg=none
+--   highlight NormalNC ctermbg=none
+--   highlight NormalFloat guibg=none
+--   highlight NormalFloat ctermbg=none
+--   highlight FloatBorder guibg=none
+--   highlight FloatBorder ctermbg=none
+-- ]]

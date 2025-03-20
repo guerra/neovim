@@ -21,7 +21,15 @@ return {
   },
 
   -- color schemes
-  { 'rose-pine/neovim',         name = 'rose-pine' },
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    config = function()
+      require('rose-pine').setup({
+        disable_float_background = true,
+      })
+    end
+  },
   { 'rebelot/kanagawa.nvim',    name = 'kanagawa' },
   {
     'NLKNguyen/papercolor-theme',
@@ -117,7 +125,7 @@ return {
       require('lualine').setup({
         options = {
           icons_enabled = true,
-          theme = 'onedark',
+          theme = 'auto',
           component_separators = '|',
           section_separators = '',
         },
