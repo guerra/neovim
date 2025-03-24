@@ -41,9 +41,12 @@ return {
         "NuiPopupNormal",
         "NuiSplitBorder",
         "NuiSplitNormal",
+
+        "PmenuSel",     -- This will clear bg
+        "Pmenu",        -- Optional: menu bg
+        "FloatBorder",  -- Optional: border
+        "NormalFloat",  -- Optional: popup base
       },
     })
-
-    -- transparent.clear_prefix('lualine')
   end
 }

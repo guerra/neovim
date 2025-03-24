@@ -77,6 +77,8 @@ local servers = {
   'sqlls',
   'solargraph',
   'intelephense',
+  'basedpyright',
+  'ruff',
 }
 
 lua_opts.capabilities = capabilities
@@ -111,6 +113,15 @@ require('mason-lspconfig').setup({
           }
         }
       }
+      lspconfig['basedpyright'].setup {
+        settings = {
+          analysis = {
+            typeCheckingMode = 'basic', -- or 'strict' based on your preference
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
+          },
+        }
+      }
     end,
   },
 })
@@ -130,7 +141,8 @@ cmp.setup({
   },
   window = {
     completion = {
-      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+      winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+      --winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
       col_offset = -3,
       side_padding = 0,
     },

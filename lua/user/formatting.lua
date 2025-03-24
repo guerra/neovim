@@ -20,6 +20,7 @@ require('conform').setup({
     sql = { "sqlfmt" },
     ruby = { "rubyfmt" },
     templ = { "templ" },
+    python = { "ruff" },
   },
   format_on_save = {
     lsp_fallback = true,
