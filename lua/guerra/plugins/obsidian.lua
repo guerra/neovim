@@ -17,7 +17,8 @@ return {
     -- see below for full list of optional dependencies 👇
   },
   config = function()
-    require("obsidian").setup({
+    local obsidian = require("obsidian")
+    obsidian.setup({
       workspaces = {
         {
           name = "personal",
@@ -49,5 +50,26 @@ return {
         return tostring("neovim notes/" .. os.time()) .. "-" .. suffix
       end,
     })
+
+    vim.api.nvim_create_user_command("ObsidianNewFromBuffer", function()
+      -- Prompt for the note title
+      local title = vim.fn.input("Enter note title: ")
+      if title == "" then
+        print("Note creation cancelled.")
+        return
+      end
+
+      -- Yank the entire content of the current buffer
+      vim.cmd("normal! ggVGy")
+
+      -- Create a new note with the specified title
+      vim.cmd("ObsidianNew " .. title)
+
+      -- Paste the yanked content into the new note
+      vim.cmd("normal! ggP")
+
+      -- Save the new note
+      vim.cmd("write")
+    end, {})
   end
 }

@@ -87,6 +87,17 @@ whichkey.add(
       end,
       desc = "jump to mark"
     },
+    { "<C-d>", "<C-d>zz" },
+    { "<C-u>", "<C-u>zz" },
+    { "<C-f>", "<C-f>zz" },
+    { "<C-b>", "<C-b>zz" },
+  },
+  {
+    mode = "n",
+    { "<leader>o",  group = "Editor / Filesystem" },
+    { "<leader>oo", oil.toggle_float,             desc = "Open oil in current folder" },
+    { "<leader>of", oil.toggle_float,             desc = "Open oil in current folder" },
+    { "<leader>oF", oil.toggle_float,             desc = "Open oil in current folder" },
   }
 )
 

@@ -3,7 +3,17 @@ return {
   version = false,
   config = function()
     require('mini.ai').setup()
-    require('mini.surround').setup()
+    require('mini.surround').setup({
+      mappings = {
+        add = 'gsa',       -- Add surrounding
+        delete = 'gsd',    -- Delete surrounding
+        replace = 'gsr',   -- Replace surrounding
+        find = 'gsf',      -- Find surrounding (to the right)
+        find_left = 'gsF', -- Find surrounding (to the left)
+        highlight = 'gsh',
+        update_n_lines = 'gsn',
+      }
+    })
 
     local map = require('mini.map')
     map.setup({

@@ -17,6 +17,7 @@ wk.add(
     { "<leader>oc", "<cmd>ObsidianNew<cr>",             desc = "Obsidian New" },
     { "<leader>ot", "<cmd>ObsidianNewFromTemplate<cr>", desc = "Obsidian new from template" },
     { "<leader>od", "<cmd>ObsidianDailies<cr>",         desc = "Obsidian dailies" },
+    { "<leader>ob", "<cmd>ObsidianNewFromBuffer<cr>",   desc = "Creates note from buffer" },
   }
 )
 

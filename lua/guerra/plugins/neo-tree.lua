@@ -96,7 +96,7 @@ return {
       },
     })
     -- Set key mappings explicitly
-    vim.api.nvim_set_keymap('n', '<C-f>', ':Neotree toggle float<CR>',
+    vim.api.nvim_set_keymap('n', '<leader><C-f>', ':Neotree toggle float<CR>',
       { noremap = true, silent = true, desc = "Float File Explorer" })
     vim.api.nvim_set_keymap('n', '<leader>T', ':Neotree toggle left<CR>',
       { noremap = true, silent = true, desc = "Left File Explorer" })

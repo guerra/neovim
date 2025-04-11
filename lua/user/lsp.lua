@@ -74,7 +74,6 @@ local servers = {
   'bashls',
   'templ',
   'elixirls',
-  'sqlls',
   'solargraph',
   'intelephense',
   'basedpyright',
@@ -135,6 +134,7 @@ cmp.setup({
   sources = {
     { name = 'path' },
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'nvim_lua' },
     { name = 'copilot' },
     { name = 'luasnip' },
@@ -187,8 +187,21 @@ cmp.setup({
     end, { 'i', 's' }),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
     ['<C-o>'] = cmp.mapping.complete(),
+    ['<C-l>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.close()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
   }),
 })
+
+--[[ local wk = require('which-key') ]]
+--[[ wk.add({ ]]
+--[[   { '<leader>vp', vim.lsp.buf.hover, desc = "LSP Hover", mode = "n" }, ]]
+--[[   { 'C-k',        vim.lsp.buf.hover, desc = "LSP Hover" }, ]]
+--[[ }, { noremap = true, silent = true }) ]]
 
 local function format_message(message, max_width)
   local formatted_message = {}
