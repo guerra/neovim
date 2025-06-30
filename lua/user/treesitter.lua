@@ -18,7 +18,8 @@ require('nvim-treesitter.configs').setup({
     'markdown',
     'yaml',
     'markdown_inline',
-    'ledger'
+    'ledger',
+    'python'
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)

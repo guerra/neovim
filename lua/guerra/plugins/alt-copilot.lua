@@ -6,7 +6,7 @@ return {
       require("copilot").setup({
         -- suggestion = { enabled = false },
         -- panel = { enabled = false },
-        copilot_node_command = os.getenv('HOME') .. '/.asdf/installs/nodejs/22.4.0/bin/node',
+        copilot_node_command = os.getenv('HOME') .. '/.asdf/installs/nodejs/22.15.1/bin/node',
         panel = {
           enabled = true,
           auto_refresh = false,

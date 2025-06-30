@@ -1,12 +1,12 @@
 require('luasnip.loaders.from_vscode').lazy_load()
 local lsp_zero = require('lsp-zero')
-
 local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
-local lua_opts = lsp_zero.nvim_lua_ls()
 local luasnip = require('luasnip')
+local lua_opts = lsp_zero.nvim_lua_ls()
+
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 lsp_zero.on_attach(function(client, bufnr)
   if vim.fn.expand('%'):find('^.env.*$') then
@@ -76,8 +76,8 @@ local servers = {
   'elixirls',
   'solargraph',
   'intelephense',
-  'basedpyright',
   'ruff',
+  'pylsp'
 }
 
 lua_opts.capabilities = capabilities
@@ -87,10 +87,19 @@ require('mason-lspconfig').setup({
   ensure_installed = servers,
   handlers = {
     lsp_zero.default_setup,
+
     lua_ls = function()
       lspconfig.lua_ls.setup(lua_opts)
-      lspconfig['hls'].setup { filetypes = { 'haskell', 'lhaskell', 'cabal' } }
-      lspconfig['solargraph'].setup {
+    end,
+
+    hls = function()
+      lspconfig.hls.setup {
+        filetypes = { 'haskell', 'lhaskell', 'cabal' }
+      }
+    end,
+
+    solargraph = function()
+      lspconfig.solargraph.setup {
         settings = {
           solargraph = {
             autoformat = false,
@@ -112,17 +121,72 @@ require('mason-lspconfig').setup({
           }
         }
       }
-      lspconfig['basedpyright'].setup {
+    end,
+
+    -- Python Language Server: pylsp Configuration
+    pylsp = function()
+      lspconfig.pylsp.setup {
         settings = {
-          analysis = {
-            typeCheckingMode = 'basic', -- or 'strict' based on your preference
-            autoSearchPaths = true,
-            useLibraryCodeForTypes = true,
-          },
+          plugins = {
+            pyflake8 = { enabled = false },
+            pycodestyle = { enabled = false },
+            autopep8 = { enabled = false },
+            yapf = { enabled = false },
+            mccabe = { enabled = false },
+            pylsp_mypy = { enabled = false },
+            pylsp_black = { enabled = false },
+            pylsp_isort = { enabled = false },
+          }
         }
       }
     end,
+
+    -- Add further server configurations here, if needed.
   },
+  --   handlers = {
+  --     lsp_zero.default_setup,
+  --     lua_ls = function()
+  --       lspconfig.lua_ls.setup(lua_opts)
+  --       lspconfig['hls'].setup { filetypes = { 'haskell', 'lhaskell', 'cabal' } }
+  --       lspconfig['solargraph'].setup {
+  --         settings = {
+  --           solargraph = {
+  --             autoformat = false,
+  --             bundlerPath = "bundle",
+  --             checkGemVersion = true,
+  --             commandPath = "solargraph",
+  --             completion = true,
+  --             definitions = true,
+  --             diagnostics = true,
+  --             folding = true,
+  --             formatting = false,
+  --             hover = true,
+  --             logLevel = "warn",
+  --             references = true,
+  --             rename = true,
+  --             symbols = true,
+  --             transport = "socket",
+  --             useBundler = true,
+  --           }
+  --         }
+  --       }
+  --       lspconfig['pylsp'].setup {
+  --         settings = {
+  --           plugins = {
+  --             pyflake8 = { enabled = false },
+  --             pycodestyle = { enabled = false },
+  --             autopep8 = { enabled = false },
+  --             yapf = { enabled = false },
+  --             mccabe = { enabled = false },
+  --             pylsp_mypy = { enabled = false },
+  --             pylsp_black = { enabled = false },
+  --             pylsp_isort = { enabled = false },
+  --           }
+  --         }
+  --
+  --       }
+  --     end,
+  --   },
 })
 
 cmp.setup({

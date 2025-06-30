@@ -5,14 +5,22 @@ return {
   version = false,
   opts = {
     -- provider = "copilot",
-    provider = 'claude'
+    provider = 'claude',
+    claude4 = {
+      endpoint = "https://api.anthropic.com",
+      model = "claude-sonnet-4-20250514",
+      temperature = 0,
+      max_tokens = 4096,
+    },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",
   dependencies = {
+    "nvim-treesitter/nvim-treesitter",
     "stevearc/dressing.nvim",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
+    "echasnovski/mini.pick",
     "nvim-tree/nvim-web-devicons",
     "zbirenbaum/copilot.lua",
     {
