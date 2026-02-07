@@ -33,7 +33,7 @@ return {
           else
             self:hide()
             vim.schedule(function()
-              vim.cmd("e " .. f)
+              vim.cmd("e " .. vim.fn.fnameescape(f))
             end)
           end
         end,

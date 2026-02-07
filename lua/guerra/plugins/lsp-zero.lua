@@ -42,7 +42,7 @@ return {
     })
 
     lsp_zero.on_attach(function(client, bufnr)
-      if vim.fn.expand('%'):find('^.env.*$') then
+      if vim.fn.expand('%'):find('^%.env') then
         vim.lsp.stop_client(client.id)
       end
 
