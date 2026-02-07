@@ -21,7 +21,6 @@ vim.filetype.add({
   },
 })
 
--- vim.cmd('colorscheme kanagawa-wave')
 vim.cmd('colorscheme rose-pine-moon')
 
 vim.opt.guicursor = ''
@@ -52,8 +51,6 @@ vim.opt.signcolumn = 'yes'
 vim.opt.isfname:append('@-@')
 
 vim.opt.updatetime = 50
-
--- vim.opt.colorcolumn = '120'
 
 -- fold config
 vim.o.foldcolumn = '1'
@@ -92,29 +89,10 @@ whichkey.add(
     --[[ { "<C-u>", "<C-u>zz" }, ]]
     --[[ { "<C-f>", "<C-f>zz" }, ]]
     --[[ { "<C-b>", "<C-b>zz" }, ]]
-  },
-  {
-    mode = "n",
-    { "<leader>o",  group = "Editor / Filesystem" },
-    { "<leader>oo", oil.toggle_float,             desc = "Open oil in current folder" },
-    { "<leader>of", oil.toggle_float,             desc = "Open oil in current folder" },
-    { "<leader>oF", oil.toggle_float,             desc = "Open oil in current folder" },
   }
 )
 
 vim.api.nvim_set_hl(0, "Visual", {
-  bg = "#555555", -- pick a color
-  blend = 20,     -- or 0–100, where 0 is fully opaque and 100 is fully transparent
+  bg = "#555555",
+  blend = 20,
 })
--- vim.cmd [[
---   highlight Normal guibg=none
---   highlight NonText guibg=none
---   highlight NormalNC guibg=none
---   highlight Normal ctermbg=none
---   highlight NonText ctermbg=none
---   highlight NormalNC ctermbg=none
---   highlight NormalFloat guibg=none
---   highlight NormalFloat ctermbg=none
---   highlight FloatBorder guibg=none
---   highlight FloatBorder ctermbg=none
--- ]]

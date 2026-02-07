@@ -52,16 +52,12 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set('n', '<leader>ci', function()
     vim.lsp.buf.code_action({
       context = {
-        diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
+        diagnostics = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 }),
         only = { "source.fixAll" }
       },
       apply = true
     })
   end, { buffer = bufnr, remap = false, desc = 'Import module under cursor' })
-
-  vim.api.nvim_set_keymap('n', '<leader>ca',
-    '<cmd>lua vim.lsp.buf.code_action()<CR>',
-    { noremap = true, silent = true, desc = 'Code actions' })
 end)
 
 local servers = {
@@ -217,50 +213,6 @@ require('mason-lspconfig').setup({
 
     -- Add further server configurations here, if needed.
   },
-  --   handlers = {
-  --     lsp_zero.default_setup,
-  --     lua_ls = function()
-  --       lspconfig.lua_ls.setup(lua_opts)
-  --       lspconfig['hls'].setup { filetypes = { 'haskell', 'lhaskell', 'cabal' } }
-  --       lspconfig['solargraph'].setup {
-  --         settings = {
-  --           solargraph = {
-  --             autoformat = false,
-  --             bundlerPath = "bundle",
-  --             checkGemVersion = true,
-  --             commandPath = "solargraph",
-  --             completion = true,
-  --             definitions = true,
-  --             diagnostics = true,
-  --             folding = true,
-  --             formatting = false,
-  --             hover = true,
-  --             logLevel = "warn",
-  --             references = true,
-  --             rename = true,
-  --             symbols = true,
-  --             transport = "socket",
-  --             useBundler = true,
-  --           }
-  --         }
-  --       }
-  --       lspconfig['pylsp'].setup {
-  --         settings = {
-  --           plugins = {
-  --             pyflake8 = { enabled = false },
-  --             pycodestyle = { enabled = false },
-  --             autopep8 = { enabled = false },
-  --             yapf = { enabled = false },
-  --             mccabe = { enabled = false },
-  --             pylsp_mypy = { enabled = false },
-  --             pylsp_black = { enabled = false },
-  --             pylsp_isort = { enabled = false },
-  --           }
-  --         }
-  --
-  --       }
-  --     end,
-  --   },
 })
 
 cmp.setup({
@@ -274,13 +226,11 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
     { name = 'nvim_lua' },
-    { name = 'copilot' },
     { name = 'luasnip' },
   },
   window = {
     completion = {
       winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-      --winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
       col_offset = -3,
       side_padding = 0,
     },
@@ -296,8 +246,6 @@ cmp.setup({
       return kind
     end,
   },
-
-  -- formatting = lsp_zero.cmp_format(),
   mapping = cmp.mapping.preset.insert({
     ['<Tab>'] = cmp.mapping(function(fallback)
       fallback()
@@ -334,12 +282,6 @@ cmp.setup({
     end, { 'i', 's' }),
   }),
 })
-
---[[ local wk = require('which-key') ]]
---[[ wk.add({ ]]
---[[   { '<leader>vp', vim.lsp.buf.hover, desc = "LSP Hover", mode = "n" }, ]]
---[[   { 'C-k',        vim.lsp.buf.hover, desc = "LSP Hover" }, ]]
---[[ }, { noremap = true, silent = true }) ]]
 
 local function format_message(message, max_width)
   local formatted_message = {}
@@ -382,38 +324,23 @@ vim.diagnostic.config({
 })
 
 
--- Auto-fix on save
-vim.api.nvim_create_autocmd("BufWritePre", {
+-- Auto-fix on save (BufWritePost avoids recursive write)
+vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*",
   callback = function()
-    -- Skip if it's an oil buffer
-    if vim.bo.filetype == "oil" then
-      return
-    end
-
-    -- For Python files, format with Ruff first
-    if vim.bo.filetype == "python" then
-      vim.lsp.buf.format({
-        filter = function(client)
-          -- Only use Ruff for formatting Python files
-          return client.name == "ruff"
-        end,
-        async = false,
-        timeout_ms = 5000,
-      })
-    end
-
+    if vim.bo.filetype == "oil" then return end
     vim.lsp.buf.code_action({
       context = {
         diagnostics = vim.diagnostic.get(0),
-        only = {
-          "source.fixAll",
-        },
+        only = { "source.fixAll" },
       },
       apply = true,
     })
-    vim.api.nvim_buf_call(0, function()
-      vim.api.nvim_command('write')
-    end)
+    -- Auto-save the fixAll result after a short delay
+    vim.defer_fn(function()
+      if vim.bo.modified then
+        vim.cmd('silent! write')
+      end
+    end, 500)
   end,
 })
