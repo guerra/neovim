@@ -1,3 +1,4 @@
+-- The global vim object is already available in Neovim
 vim.filetype.add({
   -- Detect and assign filetype based on the extension of the filename
   extension = {
@@ -87,10 +88,10 @@ whichkey.add(
       end,
       desc = "jump to mark"
     },
-    { "<C-d>", "<C-d>zz" },
-    { "<C-u>", "<C-u>zz" },
-    { "<C-f>", "<C-f>zz" },
-    { "<C-b>", "<C-b>zz" },
+    --[[ { "<C-d>", "<C-d>zz" }, ]]
+    --[[ { "<C-u>", "<C-u>zz" }, ]]
+    --[[ { "<C-f>", "<C-f>zz" }, ]]
+    --[[ { "<C-b>", "<C-b>zz" }, ]]
   },
   {
     mode = "n",

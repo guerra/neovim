@@ -76,19 +76,43 @@ local servers = {
   'elixirls',
   'solargraph',
   'intelephense',
-  'ruff',
-  'pylsp'
+  'ruff', -- Fast Python linter and formatter
+  'pyright',
+  -- DON'T include pylsp - it conflicts with ruff for linting
 }
 
 lua_opts.capabilities = capabilities
 
 require('mason').setup({})
+
+
 require('mason-lspconfig').setup({
   ensure_installed = servers,
   handlers = {
-    lsp_zero.default_setup,
+    function(server_name)
+      -- Skip pylsp to prevent conflicts with ruff
+      if server_name == "pylsp" then
+        return
+      end
+      lsp_zero.default_setup(server_name)
+    end,
 
     lua_ls = function()
+      -- Ensure Neovim runtime files are included
+      lua_opts.settings = vim.tbl_deep_extend('force', lua_opts.settings or {}, {
+        Lua = {
+          runtime = {
+            version = 'LuaJIT',
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false,
+          },
+          diagnostics = {
+            globals = { 'vim' },
+          },
+        },
+      })
       lspconfig.lua_ls.setup(lua_opts)
     end,
 
@@ -123,21 +147,71 @@ require('mason-lspconfig').setup({
       }
     end,
 
-    -- Python Language Server: pylsp Configuration
-    pylsp = function()
-      lspconfig.pylsp.setup {
-        settings = {
-          plugins = {
-            pyflake8 = { enabled = false },
-            pycodestyle = { enabled = false },
-            autopep8 = { enabled = false },
-            yapf = { enabled = false },
-            mccabe = { enabled = false },
-            pylsp_mypy = { enabled = false },
-            pylsp_black = { enabled = false },
-            pylsp_isort = { enabled = false },
+    -- Ruff for Python linting and formatting (fast!)
+    ruff = function()
+      lspconfig.ruff.setup {
+        init_options = {
+          settings = {
+            -- Ruff language server settings
+            lint = {
+              enable = true,
+              preview = true,
+            },
+            format = {
+              enable = true,
+              preview = true,
+            },
+            -- Run on every keystroke
+            run = "onType",
+            -- Auto-fix violations
+            fixAll = true,
+            -- Organize imports
+            organizeImports = true,
           }
-        }
+        },
+        capabilities = capabilities,
+        -- Make Ruff the default formatter for Python
+        on_attach = function(client, bufnr)
+          if client.name == "ruff" then
+            -- Enable formatting for this client
+            client.server_capabilities.documentFormattingProvider = true
+            client.server_capabilities.documentRangeFormattingProvider = true
+          end
+        end,
+      }
+    end,
+
+    -- Pyright for Python type checking (light mode)
+    pyright = function()
+      lspconfig.pyright.setup {
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              -- Use basic type checking instead of strict
+              typeCheckingMode = "basic",
+              -- Useful diagnostics to keep
+              reportMissingImports = true,
+              reportMissingModuleSource = false,
+              -- Reduce noise from missing type stubs
+              reportMissingTypeStubs = false,
+              -- Let Ruff handle these
+              reportUnusedVariable = false,
+              reportUnusedImport = false,
+              -- Light checking settings
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = "workspace",
+            }
+          }
+        },
+        on_attach = function(client, bufnr)
+          if client.name == "pyright" then
+            -- Disable formatting - let Ruff handle it
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end
+        end,
       }
     end,
 
@@ -284,7 +358,14 @@ vim.diagnostic.config({
     prefix = '● ',
     spacing = 4,
   },
-  signs = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+    },
+  },
   underline = true,
   float = {
     border = 'rounded',
@@ -300,11 +381,6 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 -- Auto-fix on save
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -314,6 +390,19 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     if vim.bo.filetype == "oil" then
       return
     end
+
+    -- For Python files, format with Ruff first
+    if vim.bo.filetype == "python" then
+      vim.lsp.buf.format({
+        filter = function(client)
+          -- Only use Ruff for formatting Python files
+          return client.name == "ruff"
+        end,
+        async = false,
+        timeout_ms = 5000,
+      })
+    end
+
     vim.lsp.buf.code_action({
       context = {
         diagnostics = vim.diagnostic.get(0),
