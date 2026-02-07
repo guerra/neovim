@@ -1,8 +1,0 @@
-require('user.vim')
-require('user.formatting')
-require('user.lsp')
-require('user.treesitter')
-require('user.remap')
-require('user.aerial')
-require('user.ufo')
-require('user.easypick')

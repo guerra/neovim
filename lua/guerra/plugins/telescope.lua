@@ -1,3 +1,8 @@
+local get_visual_selection = function()
+  vim.cmd('noautocmd normal! "vy"')
+  return vim.fn.getreg('v')
+end
+
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
@@ -90,4 +95,50 @@ return {
       }),
     })
   end,
+  keys = {
+    { "<leader>g",   group = "Telescope" },
+    { "<leader>gf",  function() require('telescope.builtin').find_files() end,            desc = "Find files" },
+    { "<leader>gJ",  function() require('telescope.builtin').git_files() end,             desc = "Git file search" },
+    { "<leader>gH",  function() require('telescope.builtin').help_tags() end,             desc = "Vim help" },
+    { "<leader>gg",  function() require('telescope.builtin').live_grep() end,             desc = "Live grep" },
+    { "<leader>gq",  function() require('telescope').extensions.aerial.aerial() end,      desc = "Tags" },
+    { "<leader>gr",  function() require('telescope.builtin').lsp_references() end,        desc = "References" },
+    { "<leader>gR",  function() require('telescope').extensions.aerial.aerial() end,      desc = "Aerial References" },
+    { "<leader>go",  function() require('telescope').extensions.git_worktree.git_worktrees() end,       desc = "Git worktrees" },
+    { "<leader>gc",  function() require('telescope').extensions.git_worktree.create_git_worktree() end, desc = "Create git worktree" },
+    { "<leader>gn",  function() require('telescope.builtin').marks() end,                 desc = "Marks" },
+    { "<leader>gk",  function() require('telescope.builtin').jumplist() end,              desc = "Jumplist" },
+    { "<leader>gl",  function() require('telescope.builtin').quickfixhistory() end,       desc = "Quickfix" },
+    { "<leader>gL",  function() require('telescope.builtin').registers() end,             desc = "Registers" },
+
+    { "<leader>gj",  group = "git" },
+    { "<leader>gjs", function() require('telescope.builtin').git_status() end,            desc = "git status" },
+    { "<leader>gjb", function() require('telescope.builtin').git_branches() end,          desc = "git branches" },
+    { "<leader>gjc", function() require('telescope.builtin').git_commits() end,           desc = "git commits" },
+    { "<leader>gjl", function() require('telescope.builtin').git_bcommits() end,          desc = "git buffer commits" },
+
+    {
+      "<leader>gG",
+      function()
+        local word = vim.fn.expand('<cword>')
+        require('telescope.builtin').grep_string { search = word }
+      end,
+      desc = "Live grep current word"
+    },
+
+    { "<leader><space>", function() require('telescope.builtin').resume() end,  desc = "Resume" },
+    { "<leader>b",       function() require('telescope.builtin').buffers() end, desc = "Buffers" },
+
+    { "<leader>g",  group = "Telescope - visual mode", mode = "v" },
+    { "<leader>gl", function() require('telescope.builtin').git_bcommits_range() end, desc = "git buffer commits range", mode = "v" },
+    {
+      "<leader>gg",
+      function()
+        local text = get_visual_selection() or ""
+        require('telescope.builtin').grep_string { search = text }
+      end,
+      desc = "Live grep selection",
+      mode = "v"
+    },
+  },
 }

@@ -45,10 +45,20 @@ return {
           -- If title is given, transform it into valid file name.
           suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
         else
-          suffix = suffix .. title
+          suffix = tostring(math.random(1000, 9999))
         end
         return tostring("neovim notes/" .. os.time()) .. "-" .. suffix
       end,
+    })
+
+    local wk = require('which-key')
+    wk.add({
+      { "<leader>o",  group = "Obsidian" },
+      { "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>",     desc = "Obsidian Quick Switch" },
+      { "<leader>oc", "<cmd>ObsidianNew<cr>",             desc = "Obsidian New" },
+      { "<leader>ot", "<cmd>ObsidianNewFromTemplate<cr>", desc = "Obsidian new from template" },
+      { "<leader>od", "<cmd>ObsidianDailies<cr>",         desc = "Obsidian dailies" },
+      { "<leader>ob", "<cmd>ObsidianNewFromBuffer<cr>",   desc = "Creates note from buffer" },
     })
 
     vim.api.nvim_create_user_command("ObsidianNewFromBuffer", function()
@@ -63,7 +73,7 @@ return {
       vim.cmd("normal! ggVGy")
 
       -- Create a new note with the specified title
-      vim.cmd("ObsidianNew " .. title)
+      vim.cmd("ObsidianNew " .. vim.fn.fnameescape(title))
 
       -- Paste the yanked content into the new note
       vim.cmd("normal! ggP")
