@@ -16,4 +16,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({ import = 'guerra.plugins' })
-require('user')
+require('config')

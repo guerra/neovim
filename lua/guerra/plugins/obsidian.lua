@@ -51,6 +51,16 @@ return {
       end,
     })
 
+    local wk = require('which-key')
+    wk.add({
+      { "<leader>o",  group = "Obsidian" },
+      { "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>",     desc = "Obsidian Quick Switch" },
+      { "<leader>oc", "<cmd>ObsidianNew<cr>",             desc = "Obsidian New" },
+      { "<leader>ot", "<cmd>ObsidianNewFromTemplate<cr>", desc = "Obsidian new from template" },
+      { "<leader>od", "<cmd>ObsidianDailies<cr>",         desc = "Obsidian dailies" },
+      { "<leader>ob", "<cmd>ObsidianNewFromBuffer<cr>",   desc = "Creates note from buffer" },
+    })
+
     vim.api.nvim_create_user_command("ObsidianNewFromBuffer", function()
       -- Prompt for the note title
       local title = vim.fn.input("Enter note title: ")
