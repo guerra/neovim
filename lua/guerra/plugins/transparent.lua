@@ -42,6 +42,12 @@ return {
         "NuiSplitBorder",
         "NuiSplitNormal",
 
+        -- blink.cmp documentation popup
+        'BlinkCmpDoc',
+        'BlinkCmpDocBorder',
+        'BlinkCmpSignatureHelp',
+        'BlinkCmpSignatureHelpBorder',
+
         "PmenuSel",     -- This will clear bg
         "Pmenu",        -- Optional: menu bg
         "FloatBorder",  -- Optional: border

@@ -1,6 +1,9 @@
 return {
   'mistricky/codesnap.nvim',
   build = 'make',
+  keys = {
+    { '<leader>sp', mode = 'v', desc = 'Capture code snapshot' },
+  },
   config = function()
     local codesnap = require('codesnap')
     codesnap.setup({
