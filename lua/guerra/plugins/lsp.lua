@@ -97,6 +97,11 @@ return {
       filetypes = { 'haskell', 'lhaskell', 'cabal' },
     })
 
+    -- Pass blink.cmp completion capabilities to all LSP servers
+    vim.lsp.config('*', {
+      capabilities = require('blink.cmp').get_lsp_capabilities(),
+    })
+
     -- Enable all servers
     vim.lsp.enable({
       'ts_ls',
@@ -146,6 +151,9 @@ return {
           if client.name == 'ts_ls' or client.name == 'eslint' then
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
+          end
+          if client.name == 'htmx' then
+            client.server_capabilities.completionProvider = nil
           end
 
           -- Strip expensive capabilities for large files (>1MB)
