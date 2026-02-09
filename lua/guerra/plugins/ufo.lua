@@ -32,6 +32,11 @@ return {
           vim.o.signcolumn = vim.o.signcolumn == "yes" and "no" or "yes"
           vim.o.relativenumber = not vim.o.relativenumber
           vim.o.number = not vim.o.number
+          local ibl_ok, ibl = pcall(require, 'ibl')
+          if ibl_ok then
+            local enabled = require('ibl.config').get_config(0).enabled
+            ibl.setup_buffer(0, { enabled = not enabled })
+          end
         end,
         desc = "Toggle line number and fold column"
       },

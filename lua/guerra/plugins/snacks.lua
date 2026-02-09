@@ -11,7 +11,7 @@ return {
     -- dashboard = { enabled = true },
     -- indent = { enabled = true },
     -- input = { enabled = true },
-    -- notifier = { enabled = true },
+    notifier = { enabled = true },
     -- quickfile = { enabled = true },
     scroll = { enabled = true },
     -- statuscolumn = { enabled = true },
@@ -77,6 +77,10 @@ return {
         Snacks.terminal.open()
       end,
       desc = 'new term',
-    }
+    },
+    { '<leader>sx', function() Snacks.bufdelete() end, desc = 'Close buffer' },
+    { '<leader>sX', function() Snacks.bufdelete.all() end, desc = 'Close all buffers' },
+    { '<leader>j', '<cmd>bprevious<CR>', desc = 'Previous buffer' },
+    { '<leader>k', '<cmd>bnext<CR>', desc = 'Next buffer' }
   }
 }
