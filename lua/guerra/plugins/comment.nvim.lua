@@ -1,25 +1,16 @@
 return {
-  'numToStr/Comment.nvim',
-  dependencies = {
-    'JoosepAlviste/nvim-ts-context-commentstring'
-  },
+  'JoosepAlviste/nvim-ts-context-commentstring',
+  event = 'VeryLazy',
   config = function()
-    require('Comment').setup {
-      pre_hook = function(ctx)
-        local U = require('Comment.utils')
+    require('ts_context_commentstring').setup({
+      enable_autocmd = false,
+    })
 
-        local location = nil
-        if ctx.ctype == U.ctype.block then
-          location = require('ts_context_commentstring.utils').get_cursor_location()
-        elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-          location = require('ts_context_commentstring.utils').get_visual_start_location()
-        end
-
-        return require('ts_context_commentstring.internal').calculate_commentstring({
-          key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
-          location = location,
-        })
-      end,
-    }
+    local get_option = vim.filetype.get_option
+    vim.filetype.get_option = function(filetype, option)
+      return option == 'commentstring'
+          and require('ts_context_commentstring.internal').calculate_commentstring()
+        or get_option(filetype, option)
+    end
   end,
 }

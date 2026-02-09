@@ -1,5 +1,12 @@
 -- Pure vim settings — no plugin dependencies
 
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+
 vim.filetype.add({
   extension = {
     mdx = "mdx",
@@ -62,6 +69,19 @@ wk.add(
     { "<leader>se", "<C-w>=",                     desc = "Make splits equal size" },
     { "<leader>ss", "<C-w>s",                     desc = "Split window horizontally" },
     { "<leader>sv", "<C-w>v",                     desc = "Split window vertically" },
+    {
+      '<leader>sg',
+      function()
+        if vim.g.maximized then
+          vim.cmd('wincmd =')
+          vim.g.maximized = false
+        else
+          vim.cmd('wincmd _ | wincmd |')
+          vim.g.maximized = true
+        end
+      end,
+      desc = 'Maximize/minimize split',
+    },
     {
       "<leader>sr",
       function()
