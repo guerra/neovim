@@ -4,8 +4,8 @@ return {
     local auto_session = require('auto-session')
 
     auto_session.setup({
-      auto_restore_enabled = false,
-      auto_session_suppress_dirs = { '~/', '~/downloads/', '~/Downloads', '~/documents' },
+      auto_restore = false,
+      suppressed_dirs = { '~/', '~/downloads/', '~/Downloads', '~/documents' },
     })
 
     require("which-key").add(
