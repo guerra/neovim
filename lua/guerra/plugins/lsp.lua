@@ -174,7 +174,14 @@ return {
           { '<leader>vk', vim.diagnostic.goto_prev, desc = 'Go to previous diagnostic' },
           { '<leader>vca', vim.lsp.buf.code_action, desc = 'Code action' },
           { '<leader>vrr', vim.lsp.buf.references, desc = 'References' },
-          { '<leader>vrn', vim.lsp.buf.rename, desc = 'Rename' },
+          {
+            '<leader>vrn',
+            function()
+              return ':IncRename ' .. vim.fn.expand('<cword>')
+            end,
+            expr = true,
+            desc = 'Rename',
+          },
           {
             '<C-h>',
             vim.lsp.buf.signature_help,
