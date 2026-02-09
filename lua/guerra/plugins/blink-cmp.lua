@@ -19,7 +19,7 @@ return {
         ['<Tab>'] = { 'fallback' },
       },
       completion = {
-        documentation = { auto_show = true },
+        documentation = { auto_show = true, auto_show_delay_ms = 200 },
         menu = {
           draw = {
             columns = {
@@ -30,7 +30,7 @@ return {
           },
         },
       },
-      fuzzy = { implementation = 'lua' },
+      fuzzy = { implementation = 'prefer_rust_with_warning' },
       signature = { enabled = true },
       sources = {
         default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
@@ -40,6 +40,9 @@ return {
             module = 'lazydev.integrations.blink',
             score_offset = 100,
           },
+          buffer = { max_items = 5 },
+          snippets = { max_items = 8 },
+          path = { max_items = 15 },
         },
       },
     })

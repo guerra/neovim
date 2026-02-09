@@ -143,6 +143,17 @@ return {
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
           end
+          if client.name == 'ts_ls' or client.name == 'eslint' then
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end
+
+          -- Strip expensive capabilities for large files (>1MB)
+          local fname = vim.api.nvim_buf_get_name(bufnr)
+          if fname ~= '' and vim.fn.getfsize(fname) > 1000000 then
+            client.server_capabilities.semanticTokensProvider = nil
+            client.server_capabilities.inlayHintProvider = nil
+          end
         end
 
         wk.add({
