@@ -1,5 +1,9 @@
 return {
   'stevearc/conform.nvim',
+  event = 'BufWritePre',
+  keys = {
+    { '<leader>f', desc = 'Format' },
+  },
   config = function()
     local conform = require('conform')
 
@@ -21,29 +25,30 @@ return {
         bash = { 'shfmt' },
         sh = { 'shfmt' },
         haskell = { 'fourmolu' },
-        go = { "gofumpt", "goimports", },
-        ruby = { "rubyfmt" },
-        templ = { "templ" },
-        python = { "ruff" },
+        go = { 'gofumpt', 'goimports' },
+        ruby = { 'rubyfmt' },
+        templ = { 'templ' },
+        python = { 'ruff' },
       },
       format_on_save = {
-        lsp_fallback = true,
+        lsp_format = 'fallback',
         async = false,
         timeout_ms = 2000,
       },
     })
+
+    require('which-key').add({
+      {
+        '<leader>f',
+        function()
+          conform.format({
+            lsp_format = 'fallback',
+            async = false,
+            timeout_ms = 1000,
+          })
+        end,
+        desc = 'Format',
+      },
+    })
   end,
-  keys = {
-    {
-      "<leader>f",
-      function()
-        require('conform').format({
-          lsp_fallback = true,
-          async = false,
-          timeout_ms = 1000,
-        })
-      end,
-      desc = "Format"
-    },
-  },
 }

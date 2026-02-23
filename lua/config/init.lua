@@ -59,6 +59,14 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'markdown' },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+  end,
+})
+
 local wk = require("which-key")
 
 wk.add(
@@ -131,3 +139,8 @@ wk.add({
   { "<A-K>", "<cmd>m'<-2<cr>`>my`<mzgv`yo`z", desc = "Move selected lines up",      mode = "v" },
   { "<A-J>", "<cmd>m'>+<cr>`<my`>mzgv`yo`z",  desc = "Move selected lines down",    mode = "v" },
 }, { mode = "v" })
+
+wk.add({
+  { 'H', '^', desc = 'Beginning of line', mode = { 'n', 'v' } },
+  { 'L', '$', desc = 'End of line', mode = { 'n', 'v' } },
+})

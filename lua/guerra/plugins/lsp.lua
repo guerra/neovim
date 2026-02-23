@@ -219,22 +219,17 @@ return {
     })
 
     -- Diagnostics config
-    local function format_message(message, max_width)
-      local formatted_message = {}
-      while #message > max_width do
-        local part = message:sub(1, max_width)
-        local next_part = message:sub(max_width + 1)
-        table.insert(formatted_message, part)
-        message = next_part
-      end
-      table.insert(formatted_message, message)
-      return table.concat(formatted_message, '\n')
-    end
-
     vim.diagnostic.config({
       virtual_text = {
         prefix = '● ',
         spacing = 4,
+        format = function(diagnostic)
+          local msg = diagnostic.message
+          if #msg > 50 then
+            return msg:sub(1, 50) .. '…'
+          end
+          return msg
+        end,
       },
       signs = {
         text = {
@@ -250,18 +245,21 @@ return {
         source = 'if_many',
         focusable = false,
         format = function(diagnostic)
-          return format_message(diagnostic.message, 80)
+          local code = diagnostic.code and (' [%s]'):format(diagnostic.code) or ''
+          return ('%s%s'):format(diagnostic.message, code)
         end,
       },
       update_in_insert = false,
       severity_sort = true,
     })
 
-    -- Auto-fix on save (BufWritePost avoids recursive write)
+    -- Auto-fix on save (applies fixAll, then re-saves if buffer was modified)
+    local auto_fixing = false
     vim.api.nvim_create_autocmd('BufWritePost', {
       pattern = '*',
       callback = function()
-        if vim.bo.filetype == 'oil' then return end
+        if auto_fixing or vim.bo.filetype == 'oil' then return end
+        auto_fixing = true
         vim.lsp.buf.code_action({
           context = {
             diagnostics = vim.diagnostic.get(0),
@@ -273,6 +271,7 @@ return {
           if vim.bo.modified then
             vim.cmd('silent! write')
           end
+          auto_fixing = false
         end, 500)
       end,
     })
