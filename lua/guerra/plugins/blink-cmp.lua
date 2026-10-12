@@ -19,8 +19,10 @@ return {
         ['<Tab>'] = { 'fallback' },
       },
       completion = {
-        documentation = { auto_show = true, auto_show_delay_ms = 200 },
+        list = { max_items = 50 },
+        documentation = { auto_show = false },
         menu = {
+          auto_show_delay_ms = 100,
           draw = {
             columns = {
               { 'kind_icon' },
@@ -29,10 +31,16 @@ return {
             },
           },
         },
+        accept = {
+          auto_brackets = {
+            semantic_token_resolution = { enabled = false },
+          },
+        },
       },
       fuzzy = { implementation = 'prefer_rust_with_warning' },
       signature = { enabled = true },
       sources = {
+        min_keyword_length = 2,
         default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
         providers = {
           lazydev = {
@@ -40,7 +48,8 @@ return {
             module = 'lazydev.integrations.blink',
             score_offset = 100,
           },
-          buffer = { max_items = 5 },
+          lsp = { async = true, timeout_ms = 500 },
+          buffer = { max_items = 5, min_keyword_length = 3 },
           snippets = { max_items = 8 },
           path = { max_items = 15 },
         },
