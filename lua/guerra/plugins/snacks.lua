@@ -6,8 +6,10 @@ return {
   opts = {
     bigfile = { enabled = true },
     dim = { enabled = true },
+    indent = { enabled = true, indent = { char = '┊' } },
     input = { enabled = true },
-    notifier = { enabled = true },
+    -- vim.notify is owned by noice (loads later and overrides it anyway)
+    notifier = { enabled = false },
     quickfile = { enabled = true },
     scroll = { enabled = true },
     toggle = { enabled = true },
@@ -78,6 +80,23 @@ return {
     -- Scratch
     { '<leader>zs', function() Snacks.scratch() end, desc = 'Scratch buffer' },
     { '<leader>zS', function() Snacks.scratch.select() end, desc = 'Select scratch' },
+
+    -- Distraction-free toggle: line numbers, sign/fold columns and indent guides
+    {
+      'zt',
+      function()
+        vim.o.foldcolumn = vim.o.foldcolumn == '1' and '0' or '1'
+        vim.o.signcolumn = vim.o.signcolumn == 'yes' and 'no' or 'yes'
+        vim.o.relativenumber = not vim.o.relativenumber
+        vim.o.number = not vim.o.number
+        if Snacks.indent.enabled then
+          Snacks.indent.disable()
+        else
+          Snacks.indent.enable()
+        end
+      end,
+      desc = 'Toggle line number and fold column',
+    },
 
     -- Words (LSP references navigation)
     { ']]', function() Snacks.words.jump(vim.v.count1) end, desc = 'Next reference', mode = { 'n', 'x' } },

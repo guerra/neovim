@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Personal Neovim configuration for a polyglot developer (JS/TS, Python, Ruby, Go, Elixir, Lua, Haskell, PHP). Uses lazy.nvim as the plugin manager with ~46 plugins.
+Personal Neovim configuration for a polyglot developer (JS/TS, Python, Ruby, Go, Elixir, Lua, Haskell, PHP). Targets Neovim 0.12+. Uses lazy.nvim as the plugin manager (vim.pack is deliberately not used: it has no lazy-loading).
 
 ## Architecture
 
@@ -15,7 +15,7 @@ Every plugin lives in its own file under `lua/guerra/plugins/`. Each file return
 ```
 init.lua                        → Bootstrap: sets leader to Space, lazy.nvim setup
 lua/config/init.lua             → Pure vim settings + base keymaps (no plugin deps except which-key)
-lua/guerra/plugins/*.lua        → One file per plugin (46 files)
+lua/guerra/plugins/*.lua        → One file per plugin
 ```
 
 `init.lua` loads plugins via `require('lazy').setup({ import = 'guerra.plugins' })`, which auto-discovers all files in the plugins directory. Then `require('config')` loads vim options and core keybindings.
@@ -38,14 +38,16 @@ return {
 Multiple specs (e.g., treesitter ecosystem):
 ```lua
 return {
-  { 'nvim-treesitter/nvim-treesitter', config = function() ... end },
-  { 'nvim-treesitter/playground' },
+  { 'nvim-treesitter/nvim-treesitter', branch = 'main', config = function() ... end },
+  { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
 }
 ```
 
 ### Keymap Registration
 
 **All keybindings use `which-key.add()`** — no scattered `vim.keymap.set()` calls. This is the unified keybinding API for the entire config.
+
+Don't shadow Neovim's default mappings (`:h default-mappings`): `K` (hover), `gr*` (LSP), `[d`/`]d` (diagnostics), `[q`/`]q`, `<C-x>`, etc. Avoid `[`/`]` mappings (awkward on the user's keyboard). Treesitter moves use `<C-j>` (next) / `<C-k>` (prev) + `m`/`M`/`c`/`l`/`s`/`z`/`d`.
 
 Leader key hierarchy:
 - `<leader>g` — Telescope (find, grep, refs, branches)
@@ -55,28 +57,35 @@ Leader key hierarchy:
 - `<leader>s` — Splits/editor/filesystem
 - `<leader>o` — Obsidian
 - `<leader>m` — Harpoon
+- `<leader>n` — Toggles (snacks.toggle, Minuet auto-trigger)
+- `<leader>9` — 99 AI
 - `<leader>f` — Format (conform)
-- `<C-g>` — gp.nvim AI assistant
+- `<C-g>` — AI terminals (claudecode; `<C-g>o` opencode)
 
 ### Core Plugin Roles
 
-- **LSP**: `lsp-zero.lua` (358 lines) — mason, lspconfig, nvim-cmp, diagnostics, 15 language servers
+- **LSP**: `lsp.lua` — native `vim.lsp.config()`/`vim.lsp.enable()`; nvim-lspconfig only supplies server definitions; mason installs (`automatic_enable = false`, the explicit `vim.lsp.enable` list is the source of truth)
+- **Completion**: `blink-cmp.lua`
+- **Treesitter**: `treesitter.lua` — `main` branch (needs `tree-sitter` CLI); highlight via `vim.treesitter.start()` in a FileType autocmd, missing parsers installed on demand
+- **Folds**: native. Treesitter `foldexpr` per window (indent fallback), upgraded to `vim.lsp.foldexpr()` on LspAttach; `zk` peek lives in `lua/config/init.lua`
 - **Formatting**: `conform.lua` — prettier, stylua, mix, shfmt, gofumpt, ruff, etc.
-- **Navigation**: `telescope.lua` + `harpoon.lua` + `neo-tree.lua` + `oil.lua`
-- **Git**: `gitsigns.lua` + `fugitive.lua` + `git-worktree.lua`
-- **AI**: `gp.lua` (OpenAI/Copilot) + `alt-copilot.lua` (GitHub Copilot)
-- **Colorscheme**: `rose-pine.lua` (active, moon variant), kanagawa and papercolor available
+- **Navigation**: `telescope.lua` (central; don't replace) + `harpoon.lua` + `oil.lua` + `aerial.lua`
+- **UI**: `snacks.lua` (indent, input, words, zen, terminal, toggles) + `noice.lua` (owns `vim.notify`)
+- **Git**: `gitsigns.lua` + `fugitive.lua` + snacks lazygit
+- **AI**: `claudecode.lua`, `opencode.lua`, `99.lua`, `minuet-ai.lua` (inline completion)
+- **Markdown/Notes**: `render-markdown.lua`, `live-preview.lua` (browser preview), `obsidian.lua` (obsidian-nvim community fork)
+- **Colorscheme**: `rose-pine.lua` (moon variant)
 
 ### LSP Auto-Fix on Save
 
-`lsp-zero.lua` sets up a `BufWritePost` autocmd that triggers `source.fixAll` code actions, followed by a deferred re-save. This runs on all buffers (no-op when no LSP is attached).
+`lsp.lua` sets up a `BufWritePre` autocmd that synchronously requests `source.fixAll` code actions from each attached client and applies their workspace edits, so fixes land in the same write. It is registered before conform's `BufWritePre`, so formatting runs after. No-op when no LSP is attached.
 
 ## Code Style
 
 - **Formatter**: StyLua (`.stylua.toml`): 2-space indent, single quotes
 - **Lua LSP**: `.luarc.json` recognizes `vim` global and Neovim runtime
 - Match existing patterns: 2-space indentation, single-quoted strings, no trailing semicolons
-- Plugin filenames use the package name with dashes: `lsp-zero.lua`, `comment.nvim.lua`, `gp.lua`
+- Plugin filenames use the package name with dashes: `blink-cmp.lua`, `comment.nvim.lua`, `minuet-ai.lua`
 
 ## Key Conventions
 

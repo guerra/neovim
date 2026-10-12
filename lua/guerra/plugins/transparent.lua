@@ -22,19 +22,6 @@ return {
         "NoiceCmdlinePopupBorder",
         -- etc.
 
-        -- nvim-notify highlight groups
-        "NotifyERRORBorder",
-        "NotifyWARNBorder",
-        "NotifyINFOBorder",
-        "NotifyDEBUGBorder",
-        "NotifyTRACEBorder",
-        "NotifyERRORBody",
-        "NotifyWARNBody",
-        "NotifyINFOBody",
-        "NotifyDEBUGBody",
-        "NotifyTRACEBody",
-        -- etc.
-
         -- nui.nvim highlight groups
         -- e.g. if you use NuiPopup, NuiSplit, etc.
         "NuiPopupBorder",
@@ -50,8 +37,6 @@ return {
 
         "PmenuSel",     -- This will clear bg
         "Pmenu",        -- Optional: menu bg
-        "FloatBorder",  -- Optional: border
-        "NormalFloat",  -- Optional: popup base
       },
     })
   end

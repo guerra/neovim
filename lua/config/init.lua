@@ -53,11 +53,13 @@ vim.opt.isfname:append('@-@')
 
 vim.opt.updatetime = 50
 
--- fold config
+-- fold config (native; foldmethod/foldexpr are set per window in treesitter.lua and lsp.lua)
 vim.o.foldcolumn = '1'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
+vim.o.foldtext = '' -- show the fold's first line with syntax highlighting
+vim.opt.fillchars:append({ fold = ' ', foldopen = '▾', foldclose = '▸', foldsep = ' ' })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'markdown' },
@@ -68,6 +70,26 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 local wk = require("which-key")
+
+wk.add({
+  { "z", group = "fold" },
+  {
+    "zk",
+    function()
+      local start = vim.fn.foldclosed('.')
+      if start == -1 then
+        return vim.lsp.buf.hover()
+      end
+      local lines = vim.api.nvim_buf_get_lines(0, start - 1, vim.fn.foldclosedend('.'), false)
+      local buf = vim.lsp.util.open_floating_preview(lines, '', { border = 'rounded', focus_id = 'fold_peek' })
+      local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+      if not (lang and pcall(vim.treesitter.start, buf, lang)) then
+        vim.bo[buf].syntax = vim.bo.filetype
+      end
+    end,
+    desc = "Peek fold",
+  },
+})
 
 wk.add(
   {

@@ -6,7 +6,7 @@ return {
     vim.o.autoread = true
 
     require('which-key').add({
-      { '<C-x>',  function() require('opencode').select() end,  mode = { 'n', 'x' }, desc = 'OpenCode action' },
+      { '<C-g>o', function() require('opencode').select() end,  mode = { 'n', 'x' }, desc = 'OpenCode action' },
       { '<C-.>',  function() require('opencode').toggle() end,  mode = { 'n', 't' }, desc = 'Toggle OpenCode' },
       {
         'go',

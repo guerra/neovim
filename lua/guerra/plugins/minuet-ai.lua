@@ -4,21 +4,15 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     require('minuet').setup({
-      throttle = 2500,
-      debounce = 2000,
+      throttle = 3000,
+      debounce = 2500,
       provider = 'openai_compatible',
       provider_options = {
         openai_compatible = {
-          model = 'claude-sonnet-4-5-20250929',
-          end_point = 'http://localhost:8317/v1/chat/completions',
-          api_key = function()
-            local f = io.open(os.getenv('HOME') .. '/cliproxyapi/config.yaml', 'r')
-            if not f then return '' end
-            local content = f:read('*a')
-            f:close()
-            return content:match('api%-keys:%s*%-%s*"([^"]+)"') or ''
-          end,
-          name = 'Claude',
+          model = 'qwen3.5-plus',
+          end_point = 'https://opencode.ai/zen/go/v1/chat/completions',
+          api_key = 'OPENCODE_ZEN_API_KEY',
+          name = 'OpencodeGo',
           stream = true,
           optional = {
             max_tokens = 256,
@@ -40,13 +34,9 @@ return {
     -- Enable auto-trigger for the current buffer (FileType already fired before plugin loaded)
     vim.b.minuet_virtual_text_auto_trigger = true
 
-    local vt = require('minuet.virtualtext')
-
+    -- Manual trigger/cycle lives on <A-[>/<A-]> (keymap above); <leader>9 belongs to 99.lua
     require('which-key').add({
-      { '<leader>9', group = 'Minuet AI' },
-      { '<leader>9t', '<cmd>Minuet virtualtext toggle<cr>', desc = 'Toggle auto-trigger' },
-      { '<leader>9n', vt.action.next, desc = 'Trigger / next suggestion', mode = 'i' },
-      { '<leader>9p', vt.action.prev, desc = 'Trigger / prev suggestion', mode = 'i' },
+      { '<leader>nm', '<cmd>Minuet virtualtext toggle<cr>', desc = 'Toggle Minuet auto-trigger' },
     })
   end,
 }
